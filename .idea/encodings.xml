@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/library/src/main/java/com/wty/app/library/widget/emptyview/LoadingAndRetryLayout.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/library/src/main/java/com/wty/app/library/widget/emptyview/LoadingAndRetryManager.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/library/src/main/java/com/wty/app/library/widget/emptyview/OnLoadingAndRetryListener.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/library/src/main/res/layout/base_empty.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/library/src/main/res/layout/base_loading.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/library/src/main/res/layout/base_retry.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
