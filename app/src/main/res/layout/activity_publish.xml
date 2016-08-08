@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:minHeight="?actionBarSize"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="100dip"
+        android:maxLength="300"
+        android:textSize="15sp"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dp"
+        android:gravity="top|left"
+        android:textColor="@color/black"
+        android:hint="说点什么吧...可以矫情，不要煽情！敬告：发布色情敏感内容会被封号处理。"
+        android:textColorHint="@color/gray_font_3"/>
+
+    <TextView
+        android:id="@+id/tv_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_content"
+        android:layout_alignParentRight="true"
+        android:text="(还剩下300个字)"
+        android:textColor="@color/gray_font_3"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:gravity="right"
+        android:background="@color/white"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id ="@+id/img_grid_select"
+        android:layout_below="@id/tv_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/white"/>
+
+</RelativeLayout>

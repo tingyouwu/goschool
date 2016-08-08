@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/myself_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blue"
+    android:paddingBottom="20dip"
+    android:paddingTop="20dip"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <com.wty.app.library.widget.imageview.CircleImageView
+        android:id="@+id/iv_myself_icon"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:background="@color/blue"
+        android:src="@drawable/app_logo"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/blue"/>
+
+    <TextView
+        android:id="@+id/iv_myself_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_myself_icon"
+        android:layout_marginTop="5dp"
+        android:text="张三"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_myself_name"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id = "@+id/llayout_myself_publish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_myself_publish"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_profile_publish"/>
+
+            <TextView
+                android:id="@+id/tv_myself_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="5dp"
+                android:text="投稿"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llayout_myself_feedback"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_myself_feedback"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_profile_feedback"/>
+
+            <TextView
+                android:id="@+id/tv_myself_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:text="反馈"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
