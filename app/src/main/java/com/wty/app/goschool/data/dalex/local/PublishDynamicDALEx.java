@@ -15,22 +15,30 @@ public class PublishDynamicDALEx extends SqliteBaseDALEx {
 
 	@DatabaseField(primaryKey = true,Type = FieldType.VARCHAR)
 	private String gsdynamicid;//动态id
+
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String gscontent;//填写内容
+
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String gsImage;//图片
-	@DatabaseField(Type = FieldType.INT)
-	private int gssender;//发送人id
+
 	@DatabaseField(Type = FieldType.VARCHAR)
-	private String gssendname; // 发送人名字
-	@DatabaseField(Type=FieldType.VARCHAR)
-	private String gssenderlogourl;//发送人的头像
-	@DatabaseField(Type = FieldType.INT)
-	private int gsdynamictype;//动态类型 通知 吐槽 二手市场 找师兄
+	private String gsdynamictype;//动态类型 通知 吐槽 二手市场 找师兄
+
 	@DatabaseField(Type = FieldType.INT)
 	private int gsentitytype;//实体类型 0正常，只有文字  1包含图片  2包含视频
+
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String gsaddress;//地址
+
+	@DatabaseField(Type = FieldType.INT)
+	private int gssender;//发送人id
+
+	@DatabaseField(Type = FieldType.VARCHAR)
+	private String gssendname; // 发送人名字
+
+	@DatabaseField(Type=FieldType.VARCHAR)
+	private String gssenderlogourl;//发送人的头像
 
 	public static PublishDynamicDALEx get() {
 		return SqliteDao.getDao(PublishDynamicDALEx.class);
@@ -63,19 +71,29 @@ public class PublishDynamicDALEx extends SqliteBaseDALEx {
 	 * @Decription 动态类型
 	 **/
 	public enum PublishDynamicType{
-		Notic(1,"通知"),Complain(2,"吐槽"),Market(3,"寻宝贝"),Help(4,"找师兄");
-		public int code;
+		Notic("1","通知"),Complain("2","吐槽"),Market("3","寻宝贝"),Help("4","找师兄");
+		public String code;
 		public String name;
-		PublishDynamicType(int code,String name) {
+		PublishDynamicType(String code,String name) {
 			this.name = name;
 			this.code = code;
 		}
 
-		public static String match(int code){
+		public static String matchName(String code){
 			String result = "";
 			for(PublishDynamicType type:PublishDynamicType.values()){
-				if(code == type.code){
+				if(code.equals(type.code)){
 					result = type.name;
+				}
+			}
+			return result;
+		}
+
+		public static String matchCode(String name){
+			String result = "";
+			for(PublishDynamicType type:PublishDynamicType.values()){
+				if(name.equals(type.name)){
+					result = type.code;
 				}
 			}
 			return result;

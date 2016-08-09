@@ -8,18 +8,30 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ListHolder;
+import com.orhanobut.dialogplus.OnItemClickListener;
 import com.wty.app.goschool.R;
+import com.wty.app.goschool.adapter.DialogListAdapter;
+import com.wty.app.goschool.adapter.DialogSelectListAdapter;
+import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx.PublishDynamicType;
 import com.wty.app.library.activity.BaseActivity;
 import com.wty.app.library.activity.ImageSelectorActivity;
 import com.wty.app.library.adapter.PhotoGridViewAdapter;
 import com.wty.app.library.base.AppConstant;
+import com.wty.app.library.bean.DialogOptionModel;
 import com.wty.app.library.entity.ImageModel;
 import com.wty.app.library.entity.ImageUriEntity;
 import com.wty.app.library.mvp.presenter.BasePresenter;
+import com.wty.app.library.utils.CommonUtil;
+import com.wty.app.library.widget.DialogHeaderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +50,10 @@ public class PublishActivity extends BaseActivity {
     RecyclerView img_gridview;
     @Bind(R.id.tv_label)
     TextView tv_label;
+    @Bind(R.id.rlayout_type_select)
+    RelativeLayout layout_type;
+    @Bind(R.id.tv_type_select)
+    TextView tv_type;
 
     PhotoGridViewAdapter adapter;
 
@@ -62,13 +78,12 @@ public class PublishActivity extends BaseActivity {
             }
         });
         getDefaultNavigation().getRightButton().setEnabled(false);
-        et_content.addTextChangedListener(watcher);
 
         adapter = new PhotoGridViewAdapter(this);
         adapter.setGridItemClickListener(listener);
         img_gridview.setLayoutManager(new GridLayoutManager(this, 4));
         img_gridview.setAdapter(adapter);
-
+        registerListener();
     }
 
     @Override
@@ -95,6 +110,48 @@ public class PublishActivity extends BaseActivity {
     @Override
     protected boolean isEnableStatusBar() {
         return true;
+    }
+
+    private void registerListener(){
+        et_content.clearFocus();
+        et_content.addTextChangedListener(watcher);
+        CommonUtil.keyboardControl(this,false,et_content);
+
+        layout_type.setOnClickListener(new View.OnClickListener() {
+
+            DialogHeaderView headerView = new DialogHeaderView(PublishActivity.this,"选择发布类型");
+
+            @Override
+            public void onClick(View v) {
+
+                CommonUtil.keyboardControl(PublishActivity.this,false,et_content);
+
+                List<DialogOptionModel> data = new ArrayList<DialogOptionModel>();
+                for(PublishDynamicType item: PublishDynamicType.values()){
+                    DialogOptionModel model = new DialogOptionModel(item.name,item.code);
+                    data.add(model);
+                }
+
+                final DialogPlus dialog = DialogPlus.newDialog(PublishActivity.this)
+                        .setContentHolder(new ListHolder())
+                        .setCancelable(true)
+                        .setGravity(Gravity.CENTER)
+                        .setHeader(headerView)
+                        .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setContentWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setContentBackgroundResource(R.drawable.bg_dialog_list)
+                        .setAdapter(new DialogSelectListAdapter(PublishActivity.this, data))
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                                tv_type.setText(((DialogOptionModel)item).getText());
+                                dialog.dismiss();
+                            }
+                        })
+                        .create();
+                dialog.show();
+            }
+        });
     }
 
     TextWatcher watcher = new TextWatcher() {
