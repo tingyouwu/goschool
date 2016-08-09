@@ -43,6 +43,7 @@ public class HomeItemView extends RelativeLayout implements OnClickListener{
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.HomeItemView);
         Boolean underline = ta.getBoolean(R.styleable.HomeItemView_itemUnderline, false);
         Boolean divide = ta.getBoolean(R.styleable.HomeItemView_itemDivide,true);
+        Boolean icon = ta.getBoolean(R.styleable.HomeItemView_itemIcon,true);
         String label = ta.getString(R.styleable.HomeItemView_itemText);
         int resourceId = ta.getResourceId(R.styleable.HomeItemView_itemImage, 0);
 
@@ -52,7 +53,7 @@ public class HomeItemView extends RelativeLayout implements OnClickListener{
         tv_Label.setText(label);
         iv_underline.setVisibility(underline ? View.VISIBLE : View.GONE);
         iv_divide.setVisibility(divide?View.VISIBLE:View.GONE);
-
+        iv_img.setVisibility(icon?View.VISIBLE:View.GONE);
 
         setPoint(View.GONE);
         setOnClickListener(this);

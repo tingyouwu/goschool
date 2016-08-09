@@ -13,6 +13,7 @@
         <attr name="itemImage" format="reference" />
         <attr name="itemUnderline" format="boolean" />
         <attr name="itemDivide" format="boolean" />
+        <attr name="itemIcon" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 public class CommonUtil {
 
@@ -65,5 +67,19 @@ public class CommonUtil {
 		}
 		String applicationName = (String) packageManager.getApplicationLabel(applicationInfo);
 		return applicationName;
+	}
+
+	/**
+	 * @Decription 隐藏或者显示输入法
+	 **/
+	public static void keyboardControl(Context context,boolean show,EditText editText){
+		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		if(show){
+			//显示键盘
+			imm.showSoftInput(editText, 0);
+		}else{
+			//隐藏键盘
+			imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+		}
 	}
 }
