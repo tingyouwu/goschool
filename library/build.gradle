@@ -41,4 +41,5 @@ dependencies {
     compile 'com.orhanobut:dialogplus:1.11@aar'
     //日志
     compile 'com.orhanobut:logger:1.14'
+    compile 'cn.pedant.sweetalert:library:1.3'
 }

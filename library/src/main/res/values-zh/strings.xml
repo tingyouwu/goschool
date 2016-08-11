@@ -13,4 +13,5 @@
     <string name="done">完成</string>
     <string name="num_postfix">%1$s张</string>
     <string name="message_max_num">你最多可以选择%1$s张图片</string>
+    <string name="network_failed">当前网络不可用，请检查你的网络设置</string>
 </resources>

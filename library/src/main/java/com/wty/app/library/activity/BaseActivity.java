@@ -14,10 +14,16 @@ import com.wty.app.library.R;
 import com.wty.app.library.mvp.IBase;
 import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.mvp.view.IBaseView;
+import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.utils.SystemBarTintManager;
 import com.wty.app.library.widget.navigation.NavigationText;
+import com.wty.app.library.widget.sweetdialog.OnDismissCallbackListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * @author wty
@@ -31,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
     protected View mRootView;
     protected Toolbar toolbar;
     private SystemBarTintManager tintManager;//沉浸式状态栏
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +121,49 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
             navigation = new NavigationText(this);
         }
         return navigation;
+    }
+
+    /**
+     * @Decription 校验数据
+     **/
+    protected List<String> validate(){
+        return new ArrayList<String>();
+    }
+
+    /**
+     * @Decription 提交数据
+     **/
+    protected boolean submit(){
+        List<String> validate = validate();
+        if(validate.size()!=0){
+            onToastErrorMsg(validate.get(0));
+            return false;
+        }else if(!NetWorkUtils.isNetworkConnected(this)){
+            onToastErrorMsg(getString(R.string.network_failed));
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /**
+     * @Decription 弹框提示
+     **/
+    public void onToast(OnDismissCallbackListener callback){
+        SweetAlertDialog dialog = new SweetAlertDialog(this,callback.alertType);
+        dialog.setTitleText(callback.msg)
+                .setConfirmText("确定")
+                .setConfirmClickListener(callback)
+                .changeAlertType(callback.alertType);
+        dialog.show();
+    }
+
+    public void onToastSuccess(final String msg){
+        onToast(new OnDismissCallbackListener(msg,SweetAlertDialog.SUCCESS_TYPE));
+    }
+
+    public void onToastErrorMsg(final String msg){
+        onToast(new OnDismissCallbackListener(msg,SweetAlertDialog.ERROR_TYPE));
     }
 
 }
