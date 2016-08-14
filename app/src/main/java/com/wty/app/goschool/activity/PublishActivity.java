@@ -75,6 +75,7 @@ public class PublishActivity extends BaseActivity {
         getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submit();
             }
         });
         getDefaultNavigation().getRightButton().setEnabled(false);
@@ -89,6 +90,14 @@ public class PublishActivity extends BaseActivity {
     @Override
     public int getLayoutResource() {
         return R.layout.activity_publish;
+    }
+
+    @Override
+    protected boolean submit() {
+        if(super.submit()){
+
+        }
+        return true;
     }
 
     @Override
@@ -112,6 +121,9 @@ public class PublishActivity extends BaseActivity {
         return true;
     }
 
+    /**
+     * @Decription 注册监听
+     **/
     private void registerListener(){
         et_content.clearFocus();
         et_content.addTextChangedListener(watcher);
