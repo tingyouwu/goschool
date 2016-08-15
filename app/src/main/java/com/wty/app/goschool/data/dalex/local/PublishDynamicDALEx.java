@@ -100,4 +100,75 @@ public class PublishDynamicDALEx extends SqliteBaseDALEx {
 		}
 	}
 
+	public String getGsdynamicid() {
+		return gsdynamicid;
+	}
+
+	public void setGsdynamicid(String gsdynamicid) {
+		this.gsdynamicid = gsdynamicid;
+	}
+
+	public String getGscontent() {
+		return gscontent;
+	}
+
+	public void setGscontent(String gscontent) {
+		this.gscontent = gscontent;
+	}
+
+	public String getGsImage() {
+		return gsImage;
+	}
+
+	public void setGsImage(String gsImage) {
+		this.gsImage = gsImage;
+	}
+
+	public String getGsdynamictype() {
+		return gsdynamictype;
+	}
+
+	public void setGsdynamictype(String gsdynamictype) {
+		this.gsdynamictype = gsdynamictype;
+	}
+
+	public int getGsentitytype() {
+		return gsentitytype;
+	}
+
+	public void setGsentitytype(int gsentitytype) {
+		this.gsentitytype = gsentitytype;
+	}
+
+	public String getGsaddress() {
+		return gsaddress;
+	}
+
+	public void setGsaddress(String gsaddress) {
+		this.gsaddress = gsaddress;
+	}
+
+	public int getGssender() {
+		return gssender;
+	}
+
+	public void setGssender(int gssender) {
+		this.gssender = gssender;
+	}
+
+	public String getGssendname() {
+		return gssendname;
+	}
+
+	public void setGssendname(String gssendname) {
+		this.gssendname = gssendname;
+	}
+
+	public String getGssenderlogourl() {
+		return gssenderlogourl;
+	}
+
+	public void setGssenderlogourl(String gssenderlogourl) {
+		this.gssenderlogourl = gssenderlogourl;
+	}
 }

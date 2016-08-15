@@ -50,14 +50,12 @@
         </activity>
 
         <activity
-            android:name=".activity.ImagePagerActivity"
+            android:name=".mvp.view.activity.PublishActivity"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
 
         <activity
-            android:name=".activity.PublishActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
+            android:name=".activity.ImagePagerActivity"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
 
