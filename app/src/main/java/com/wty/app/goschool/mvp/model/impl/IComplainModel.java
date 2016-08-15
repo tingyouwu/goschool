@@ -5,6 +5,6 @@ import com.wty.app.library.mvp.model.IBaseModel;
 /**
  * @author wty
  */
-public interface ILifeModel extends IBaseModel {
+public interface IComplainModel extends IBaseModel{
 
 }

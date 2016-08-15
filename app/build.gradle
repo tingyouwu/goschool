@@ -59,24 +59,22 @@ android {
         }
     }
 
-    productFlavors {//多渠道打包
-        googlepay {}
-        baidu {}
-        qihoo360 {}
-        xiaomi {}
-        tencent {}
-        anzhi {}
-    }
-
-    // 指定apk名字输出格式
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            String apkParent = output.outputFile.parent
-            String apkName = "goschool-${variant.buildType.name}-${variant.versionName}-" +
-                    "${variant.productFlavors[0].name}.apk".toLowerCase()
-            output.outputFile = new File(apkParent,apkName)
-        }
-    }
+//    productFlavors {//多渠道打包
+//        googlepay {}
+//        qihoo360 {}
+//        xiaomi {}
+//        tencent {}
+//    }
+//
+//    // 指定apk名字输出格式
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            String apkParent = output.outputFile.parent
+//            String apkName = "goschool-${variant.buildType.name}-${variant.versionName}-" +
+//                    "${variant.productFlavors[0].name}.apk".toLowerCase()
+//            output.outputFile = new File(apkParent,apkName)
+//        }
+//    }
 
 }
 

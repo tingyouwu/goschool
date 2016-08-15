@@ -1,11 +1,10 @@
 package com.wty.app.goschool.mvp.model.impl;
 
-import com.wty.app.library.mvp.view.IBaseView;
+import com.wty.app.library.mvp.model.IBaseModel;
 
 /**
  * @author wty
- * 基础事件
  */
-public interface IHomeModel extends IBaseView{
+public interface IHomeModel extends IBaseModel {
 
 }

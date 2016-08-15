@@ -22,6 +22,8 @@ import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.DialogListAdapter;
 import com.wty.app.goschool.adapter.DialogSelectListAdapter;
 import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx.PublishDynamicType;
+import com.wty.app.goschool.mvp.presenter.PublishPresenter;
+import com.wty.app.goschool.mvp.view.impl.IPublishView;
 import com.wty.app.library.activity.BaseActivity;
 import com.wty.app.library.activity.ImageSelectorActivity;
 import com.wty.app.library.adapter.PhotoGridViewAdapter;
@@ -42,7 +44,7 @@ import butterknife.Bind;
  * @Decription 发布新内容
  * @author wty
  */
-public class PublishActivity extends BaseActivity {
+public class PublishActivity extends BaseActivity implements IPublishView{
 
     @Bind(R.id.et_content)
     EditText et_content;
@@ -64,7 +66,7 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     public BasePresenter getPresenter() {
-        return null;
+        return new PublishPresenter();
     }
 
     @Override
@@ -95,7 +97,7 @@ public class PublishActivity extends BaseActivity {
     @Override
     protected boolean submit() {
         if(super.submit()){
-
+            ((PublishPresenter)mPresenter).submit(null);
         }
         return true;
     }
@@ -216,4 +218,23 @@ public class PublishActivity extends BaseActivity {
         }
     };
 
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
+    public void showFaild() {
+
+    }
+
+    @Override
+    public boolean checkNet() {
+        return false;
+    }
+
+    @Override
+    public void showNoNet() {
+
+    }
 }

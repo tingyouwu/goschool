@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * @author wty
  */
-public interface ILifeView extends IBaseView{
+public interface IComplainView extends IBaseView{
+
     void setAdapter(List<PublishDynamicDALEx> list);
 
     //加载更多
