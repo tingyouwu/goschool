@@ -20,9 +20,4 @@ public class BasePresenter<V extends IBaseView> implements IBasePresenter<V> {
         this.mView = null;
     }
 
-    @Override
-    public V getAttacchView() {
-        return mView;
-    }
-
 }

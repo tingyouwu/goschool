@@ -1,6 +1,7 @@
 package com.wty.app.library.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -9,6 +10,7 @@ import com.wty.app.library.entity.ImageUriEntity;
 import com.wty.app.library.utils.ImageLoaderUtil;
 import com.wty.app.library.viewholder.BaseRecyclerViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -175,6 +177,17 @@ public class PhotoGridViewAdapter extends BaseRecyclerViewMultiItemAdapter<Image
 	 **/
 	public List<ImageUriEntity> getSelectImages(){
 		return this.mData.subList(0,count_select);
+	}
+
+	/**
+	 * @Decription 获取已经选择的图片,以逗号隔开
+	 **/
+	public String getSelectImagesPath(){
+		List<String> path = new ArrayList<String>();
+		for(ImageUriEntity item:getSelectImages()){
+			path.add(item.uri);
+		}
+		return path.size()==0?"":TextUtils.join(",",path);
 	}
 
 	/**

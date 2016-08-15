@@ -19,7 +19,7 @@ public abstract class SimpleDialogTask extends SimpleTask{
     protected void onPreExecute() {
         super.onPreExecute();
         if(context!=null){
-            context.Onloading(loadingMessage);
+            context.showLoading(loadingMessage);
             context.loadingdialog
                     .setOnCancelListener(new DialogInterface.OnCancelListener() {
                         public void onCancel(DialogInterface dialog) {

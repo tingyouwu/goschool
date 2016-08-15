@@ -72,6 +72,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
             mPresenter.detachView();
             mPresenter = null;
         }
+
+        if (loadingdialog != null && loadingdialog.isShowing()) {
+            loadingdialog.dismiss();
+        }
     }
 
     /**
@@ -136,14 +140,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
 
     /**
      * @Decription 提交数据
+     * 第一步：校验数据
+     * 第二步：校验网络是否联通
      **/
     protected boolean submit(){
         List<String> validate = validate();
         if(validate.size()!=0){
-            onToastErrorMsg(validate.get(0));
+            showFailed(validate.get(0));
             return false;
         }else if(!NetWorkUtils.isNetworkConnected(this)){
-            onToastErrorMsg(getString(R.string.network_failed));
+            showSuccess(getString(R.string.network_failed));
             return false;
         }else{
             return true;
@@ -162,18 +168,18 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
         dialog.show();
     }
 
-    public void onToastSuccess(final String msg){
+    public void showSuccess(final String msg){
         onToast(new OnDismissCallbackListener(msg, SweetAlertDialog.SUCCESS_TYPE));
     }
 
-    public void onToastErrorMsg(final String msg){
+    public void showFailed(final String msg){
         onToast(new OnDismissCallbackListener(msg, SweetAlertDialog.ERROR_TYPE));
     }
 
     /**
      * @Decription 提示加载中
      **/
-    public void Onloading(String msg){
+    public void showLoading(String msg){
         if(this.isFinishing())return;
         if(loadingdialog==null || !loadingdialog.isShowing()){
             loadingdialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE)
