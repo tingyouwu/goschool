@@ -1,11 +1,14 @@
 package com.wty.app.library.activity;
 
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -37,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
     protected View mRootView;
     protected Toolbar toolbar;
     private SystemBarTintManager tintManager;//沉浸式状态栏
+    public SweetAlertDialog loadingdialog;
 
 
     @Override
@@ -159,11 +163,91 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
     }
 
     public void onToastSuccess(final String msg){
-        onToast(new OnDismissCallbackListener(msg,SweetAlertDialog.SUCCESS_TYPE));
+        onToast(new OnDismissCallbackListener(msg, SweetAlertDialog.SUCCESS_TYPE));
     }
 
     public void onToastErrorMsg(final String msg){
-        onToast(new OnDismissCallbackListener(msg,SweetAlertDialog.ERROR_TYPE));
+        onToast(new OnDismissCallbackListener(msg, SweetAlertDialog.ERROR_TYPE));
+    }
+
+    /**
+     * @Decription 提示加载中
+     **/
+    public void Onloading(String msg){
+        if(this.isFinishing())return;
+        if(loadingdialog==null || !loadingdialog.isShowing()){
+            loadingdialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE)
+                    .setTitleText(msg);
+            loadingdialog.setCancelable(false);
+            loadingdialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                int countDestroyBack = 0;
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if(keyCode == KeyEvent.KEYCODE_BACK){
+                        countDestroyBack++;
+                        if(countDestroyBack == 3){
+                            loadingdialog.dismiss();
+                        }
+                    }
+                    return false;
+                }
+            });
+            loadingdialog.show();
+
+        }
+    }
+
+    public void dismissLoading(){
+        dismissLoading(null);
+    }
+
+    public void dismissLoading(final OnDismissCallbackListener callback){
+        if(loadingdialog!=null && loadingdialog.isShowing()){
+            new CountDownTimer(500,1000) {
+                //一些提交会比较快 所以需要500ms缓冲
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    if(callback == null){
+                        loadingdialog.dismiss();
+                    }else{
+                        loadingdialog.setTitleText(callback.msg)
+                                .setConfirmText("确定")
+                                .setConfirmClickListener(callback)
+                                .changeAlertType(callback.alertType);
+                    }
+                }
+            }.start();
+        }
+    }
+
+    /**
+     * 提交前提示确认按钮
+     **/
+    protected void confirmSubmit(String title){
+        SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
+        dialog.setTitleText(title);
+
+        dialog.setConfirmText("确定");
+        dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.cancel();
+                submit();
+            }
+        });
+        dialog.setCancelText("取消");
+        dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.cancel();
+            }
+        });
+        dialog.show();
     }
 
 }

@@ -19,8 +19,8 @@ public abstract class SimpleDialogTask extends SimpleTask{
     protected void onPreExecute() {
         super.onPreExecute();
         if(context!=null){
-            context.loading(loadingMessage);
-            context.dialog
+            context.Onloading(loadingMessage);
+            context.loadingdialog
                     .setOnCancelListener(new DialogInterface.OnCancelListener() {
                         public void onCancel(DialogInterface dialog) {
                             // 取消事件监听， 同时取消现场访问

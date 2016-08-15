@@ -8,21 +8,21 @@ import com.wty.app.library.mvp.view.IBaseView;
  * (Alt+Enter 自动实现接口函数)
  */
 public class BasePresenter<V extends IBaseView> implements IBasePresenter<V> {
-    public V view;
+    protected V mView;
 
     @Override
     public void attachView(V mvpView) {
-        this.view = mvpView;
+        this.mView = mvpView;
     }
 
     @Override
     public void detachView() {
-        this.view = null;
+        this.mView = null;
     }
 
     @Override
     public V getAttacchView() {
-        return view;
+        return mView;
     }
 
 }
