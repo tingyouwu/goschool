@@ -11,8 +11,10 @@ import com.wty.app.library.activity.BaseActivity;
 import com.wty.app.library.mvp.IBase;
 import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.mvp.view.IBaseView;
+import com.wty.app.library.widget.sweetdialog.OnDismissCallbackListener;
 
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * @author wty
@@ -126,5 +128,35 @@ public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends F
             }
             onInitView(bundle);
         }
+    }
+
+    /**
+     * @Decription 弹框提示
+     **/
+    public void onToast(OnDismissCallbackListener callback){
+        activity.onToast(callback);
+    }
+
+    public void showSuccess(final String msg){
+        onToast(new OnDismissCallbackListener(msg, SweetAlertDialog.SUCCESS_TYPE));
+    }
+
+    public void showFailed(final String msg){
+        onToast(new OnDismissCallbackListener(msg, SweetAlertDialog.ERROR_TYPE));
+    }
+
+    /**
+     * @Decription 提示加载中
+     **/
+    public void showLoading(String msg){
+        activity.showLoading(msg);
+    }
+
+    public void dismissLoading(){
+        dismissLoading(null);
+    }
+
+    public void dismissLoading(final OnDismissCallbackListener callback){
+        activity.dismissLoading(callback);
     }
 }

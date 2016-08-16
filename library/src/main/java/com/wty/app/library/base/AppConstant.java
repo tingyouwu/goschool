@@ -5,7 +5,7 @@ package com.wty.app.library.base;
  * 功能描述：本应用对应的一些常量
  **/
 public class AppConstant {
-    public final static String Bmob_ApplicationId = "b77ebeaeb39636a0870a09e1e6e39981";
+    public final static String Bmob_ApplicationId = "38f52b3f41666fb3eb216c0b343ba22b";
 
     public static class ActivityResult{
         public final static int Request_Camera = 100;
