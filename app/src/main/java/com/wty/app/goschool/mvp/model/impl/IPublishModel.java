@@ -8,6 +8,8 @@ import com.wty.app.library.mvp.presenter.ICallBack;
  * @author wty
  */
 public interface IPublishModel extends IBaseModel{
-    //提交数据
+    /**
+     * @Decription 提交数据
+     **/
     void submit(PublishDynamicDALEx data, ICallBack<String> callBack);
 }

@@ -8,6 +8,7 @@ import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.HomeAdapter;
 import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.entity.ActionItem;
+import com.wty.app.goschool.mvp.presenter.ComplainPresenter;
 import com.wty.app.goschool.mvp.view.impl.IComplainView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
@@ -36,7 +37,7 @@ public class ComplainFragment extends BaseFragment implements IComplainView{
 
     @Override
     public BasePresenter getPresenter() {
-        return null;
+        return new ComplainPresenter();
     }
 
     @Override
@@ -51,14 +52,12 @@ public class ComplainFragment extends BaseFragment implements IComplainView{
         listview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                refreshAddData();
-                listview.refreshComplete();
+                ((ComplainPresenter)mPresenter).refreshMoreComplain();
             }
 
             @Override
             public void onLoadMore() {
-                LoadMoreAddData();
-                listview.loadMoreComplete();
+                ((ComplainPresenter)mPresenter).loadMoreComplain();
             }
 
         });
@@ -147,8 +146,8 @@ public class ComplainFragment extends BaseFragment implements IComplainView{
     }
 
     @Override
-    public void setAdapter(List<PublishDynamicDALEx> list) {
-        adapter.addData(list);
+    public void refreshMore(List<PublishDynamicDALEx> list) {
+
     }
 
     @Override
@@ -164,6 +163,11 @@ public class ComplainFragment extends BaseFragment implements IComplainView{
     @Override
     public void onRefreshComplete() {
         listview.refreshComplete();
+    }
+
+    @Override
+    public void onRefreshComplete(String result) {
+        listview.refreshComplete(result);
     }
 
     @Override

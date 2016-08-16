@@ -6,10 +6,14 @@ import android.view.View;
 
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.HomeAdapter;
+import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.entity.ActionItem;
+import com.wty.app.goschool.mvp.presenter.PicturePresenter;
+import com.wty.app.goschool.mvp.view.impl.IPictureView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
 import com.wty.app.library.mvp.presenter.BasePresenter;
+import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
 import com.wty.app.library.widget.xrecyclerview.XRecyclerView;
@@ -24,7 +28,7 @@ import butterknife.Bind;
  * 主页->图片
  * @author wty
  */
-public class PictureFragment extends BaseFragment {
+public class PictureFragment extends BaseFragment implements IPictureView {
 
     BaseRecyclerViewAdapter adapter;
     @Bind(R.id.listview_life)
@@ -32,7 +36,7 @@ public class PictureFragment extends BaseFragment {
 
     @Override
     public BasePresenter getPresenter() {
-        return null;
+        return new PicturePresenter();
     }
 
     @Override
@@ -130,5 +134,40 @@ public class PictureFragment extends BaseFragment {
             data.add(item);
         }
         adapter.addData(data);
+    }
+
+    @Override
+    public boolean checkNet() {
+        return NetWorkUtils.isNetworkConnected(activity);
+    }
+
+    @Override
+    public void showNoNet() {
+
+    }
+
+    @Override
+    public void refreshMore(List<PublishDynamicDALEx> list) {
+
+    }
+
+    @Override
+    public void loadMore(List<PublishDynamicDALEx> list) {
+
+    }
+
+    @Override
+    public void onRefreshComplete() {
+        listview.refreshComplete();
+    }
+
+    @Override
+    public void onRefreshComplete(String result) {
+        listview.refreshComplete(result);
+    }
+
+    @Override
+    public void onLoadMoreComplete() {
+        listview.loadMoreComplete();
     }
 }
