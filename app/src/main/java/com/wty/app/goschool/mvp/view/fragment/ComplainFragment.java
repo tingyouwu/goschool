@@ -6,10 +6,13 @@ import android.view.View;
 
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.HomeAdapter;
+import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.entity.ActionItem;
+import com.wty.app.goschool.mvp.view.impl.IComplainView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
 import com.wty.app.library.mvp.presenter.BasePresenter;
+import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
 import com.wty.app.library.widget.xrecyclerview.XRecyclerView;
@@ -24,7 +27,7 @@ import butterknife.Bind;
  * 主页->吐槽
  * @author wty
  */
-public class ComplainFragment extends BaseFragment {
+public class ComplainFragment extends BaseFragment implements IComplainView{
 
     BaseRecyclerViewAdapter adapter;
 
@@ -131,5 +134,40 @@ public class ComplainFragment extends BaseFragment {
             data.add(item);
         }
         adapter.addData(data);
+    }
+
+    @Override
+    public boolean checkNet() {
+        return NetWorkUtils.isNetworkConnected(activity);
+    }
+
+    @Override
+    public void showNoNet() {
+        showFailed(getString(R.string.network_failed));
+    }
+
+    @Override
+    public void setAdapter(List<PublishDynamicDALEx> list) {
+        adapter.addData(list);
+    }
+
+    @Override
+    public void loadMore(List<PublishDynamicDALEx> list) {
+        if(list != null){
+            if(list.size()<=0){
+                return;
+            }
+            adapter.addData(list);
+        }
+    }
+
+    @Override
+    public void onRefreshComplete() {
+        listview.refreshComplete();
+    }
+
+    @Override
+    public void onLoadMoreComplete() {
+        listview.loadMoreComplete();
     }
 }

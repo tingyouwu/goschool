@@ -3,6 +3,7 @@ package com.wty.app.goschool.base;
 import android.content.Context;
 
 import com.wty.app.goschool.R;
+import com.wty.app.library.base.AppConstant;
 import com.wty.app.library.base.MainApplication;
 import com.wty.app.library.widget.emptyview.LoadingAndRetryManager;
 
@@ -18,7 +19,7 @@ public class GoSchoolApplication extends MainApplication {
 		super.onCreate();
 		mApplication = this.getApplicationContext();
 		//初始化Bmob功能
-//		Bmob.initialize(this, AppConstant.Bmob_ApplicationId);
+		Bmob.initialize(this, AppConstant.Bmob_ApplicationId);
 		initLoadingView();
 	}
 

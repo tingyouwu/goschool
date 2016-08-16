@@ -4,7 +4,6 @@ import com.wty.app.goschool.base.BmobCache;
 import com.wty.app.goschool.data.annotation.bmob.BmobAnnotationCache;
 import com.wty.app.goschool.data.annotation.bmob.BmobAnnotationField;
 import com.wty.app.goschool.data.annotation.bmob.BmobAnnotationTable;
-import com.wty.app.library.base.AppCache;
 import com.wty.app.library.data.annotation.DatabaseField;
 import com.wty.app.library.data.dalex.SqliteBaseDALEx;
 

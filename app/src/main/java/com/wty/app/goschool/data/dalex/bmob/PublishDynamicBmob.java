@@ -7,7 +7,7 @@ import com.wty.app.library.data.annotation.DatabaseField.FieldType;
  * @Decription 发布动态信息的存储类(bmob)
  * @author wty
  */
-public class BmobPublishDynamicDALEx extends BaseBmobObject {
+public class PublishDynamicBmob extends BaseBmobObject {
 	
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String gscontent;//填写内容
@@ -33,8 +33,8 @@ public class BmobPublishDynamicDALEx extends BaseBmobObject {
 	@DatabaseField(Type=FieldType.VARCHAR)
 	private String gssenderlogourl;//发送人的头像
 
-	public BmobPublishDynamicDALEx(){
+	public PublishDynamicBmob(){
 		//由于限制  类名不能超过20个字
-		super(BmobPublishDynamicDALEx.class.getSimpleName());
+		super(PublishDynamicBmob.class.getSimpleName());
 	}
 }
