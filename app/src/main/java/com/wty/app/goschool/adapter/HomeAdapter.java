@@ -33,6 +33,7 @@ public class HomeAdapter extends BaseRecyclerViewMultiItemAdapter<ActionItem> {
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, ActionItem item,int position) {
+
         switch (helper.getItemViewType()){
             case ActionItem.TEXT:
                 break;

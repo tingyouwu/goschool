@@ -10,6 +10,7 @@ import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
 import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.widget.DivItemDecoration;
+import com.wty.app.library.widget.xrecyclerview.MyXRecyclerView;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
 import com.wty.app.library.widget.xrecyclerview.XRecyclerView;
 
@@ -28,7 +29,7 @@ public class LifeFragment extends BaseFragment {
     BaseRecyclerViewAdapter adapter;
 
     @Bind(R.id.listview_life)
-    XRecyclerView listview;
+    MyXRecyclerView listview;
 
     @Override
     public BasePresenter getPresenter() {
@@ -62,7 +63,7 @@ public class LifeFragment extends BaseFragment {
 
     @Override
     public int getLayoutResource() {
-        return R.layout.fragment_life;
+        return R.layout.fragment_lifecircle;
     }
 
     @Override

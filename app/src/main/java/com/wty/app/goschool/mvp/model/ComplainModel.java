@@ -14,7 +14,7 @@ public class ComplainModel implements IComplainModel{
 
     @Override
     public void loadMoreComplain(PublishDynamicDALEx data, ICallBack<List<PublishDynamicDALEx>> callBack) {
-        
+
     }
 
     @Override
