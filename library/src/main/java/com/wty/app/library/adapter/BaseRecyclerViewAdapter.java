@@ -25,6 +25,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     protected int mLayoutResId;//布局文件id
     protected List<T> mData;
     private View mContentView;
+    private boolean isScrolling = false;
 
     public BaseRecyclerViewAdapter(Context context) {
         this(context,0, null);
@@ -192,5 +193,13 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
      **/
     protected int getDefItemViewType(int position) {
         return super.getItemViewType(position);
+    }
+
+    public void setScrolling(boolean isScrolling){
+        this.isScrolling = isScrolling;
+    }
+
+    public boolean getScrollingStatus(){
+        return this.isScrolling;
     }
 }
