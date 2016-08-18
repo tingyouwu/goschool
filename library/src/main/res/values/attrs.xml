@@ -94,4 +94,13 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="ToggleButton">
+        <attr name="bordWidth" format="dimension"></attr>
+        <attr name="offBordColor" format="reference|color"></attr>
+        <attr name="offColor" format="reference|color"></attr>
+        <attr name="onColor" format="reference|color"></attr>
+        <attr name="spotColor" format="reference|color"></attr>
+        <attr name="animate" format="reference|boolean"></attr>
+    </declare-styleable>
+
 </resources>
