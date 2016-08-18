@@ -24,6 +24,7 @@
 
     <!--basic color-->
     <color name="white">#ffffff</color>
+    <color name="alphawhite">#00ffffff</color>
     <color name="black">#040404</color>
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>

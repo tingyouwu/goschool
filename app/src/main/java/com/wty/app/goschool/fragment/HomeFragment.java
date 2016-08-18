@@ -59,8 +59,8 @@ public class HomeFragment extends BaseFragment {
         fragments.put("通知",new NoticeFragment());
         fragments.put("吐槽",new ComplainFragment());
         fragments.put("图片",new PictureFragment());
-        fragments.put("寻宝贝",new MarketFragment());
-        fragments.put("找师兄", new HelpFragment());
+        fragments.put("跳蚤市场",new MarketFragment());
+        fragments.put("师兄帮忙", new HelpFragment());
         TabFragmentAdapter adapter = new TabFragmentAdapter(fragments,this.getChildFragmentManager());
 //        MyViewPagerScroller scroller = new MyViewPagerScroller(getContext());
 //        scroller.setScrollDuration(800);

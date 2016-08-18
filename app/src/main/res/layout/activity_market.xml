@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:minHeight="?actionBarSize"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="100dip"
+        android:maxLength="300"
+        android:textSize="15sp"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dp"
+        android:gravity="top|left"
+        android:textColor="@color/black"
+        android:hint="详细描述购买时间，几成新，是否有发票都有助于你得到更多人的关注哦！骚年，爆发你的生意头脑吧!"
+        android:textColorHint="@color/gray_font_3"/>
+
+    <TextView
+        android:id="@+id/tv_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_content"
+        android:layout_alignParentRight="true"
+        android:text="(还剩下300个字)"
+        android:textColor="@color/gray_font_3"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:gravity="right"
+        android:background="@color/white"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id ="@+id/img_grid_select"
+        android:layout_below="@id/tv_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/white"/>
+
+    <RelativeLayout
+        android:id="@+id/rlayout_price_new"
+        android:layout_below="@id/img_grid_select"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/list_line"
+            android:layout_alignParentTop="true"/>
+        
+        <TextView
+            android:id="@+id/tv_price_new"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="想卖 "
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_price_new"
+            android:layout_toRightOf="@id/tv_price_new"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:background="@drawable/bg_edittext"
+            android:padding="5dp"
+            android:textColor="@color/gray_font_3"
+            android:hint="请输入售卖价格(元)"
+            android:textColorHint="@color/gray_font_3"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlayout_price_old"
+        android:layout_below="@id/rlayout_price_new"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/list_line"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:id="@+id/tv_price_old"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="原价 "
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_price_old"
+            android:layout_toRightOf="@id/tv_price_old"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:background="@drawable/bg_edittext"
+            android:padding="5dp"
+            android:textColor="@color/gray_font_3"
+            android:hint="请输入原价(元)"
+            android:textColorHint="@color/gray_font_3"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
