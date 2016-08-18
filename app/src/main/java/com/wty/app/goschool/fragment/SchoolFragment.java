@@ -29,7 +29,7 @@ public class SchoolFragment extends BaseFragment {
 
     @Override
     public int getLayoutResource() {
-        return R.layout.fragment_office;
+        return R.layout.activity_market;
     }
 
     @Override
