@@ -73,4 +73,25 @@
         <attr name="itemViewImage" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="FormItemView">
+        <attr name="formLabel" format="string" />
+        <attr name="formHint" format="string" />
+        <attr name="formRequired" format="boolean" />
+        <attr name="formReadOnly" format="boolean" />
+        <attr name="formMaxLength" format="integer" />
+        <attr name="formSelectOption" format="string" />
+        <attr name="formDefaultDate" format="string" />
+        <attr name="formContentType">
+            <enum name="Text" value="1" />
+            <enum name="Int" value="2" />
+            <enum name="Password" value="3" />
+            <enum name="Decimal" value="4" />
+            <enum name="Money" value="5" />
+            <enum name="SingleSelect" value="6" />
+            <enum name="Location" value="8" />
+            <enum name="Date" value="9" />
+            <enum name="DateTime" value="10" />
+        </attr>
+    </declare-styleable>
+
 </resources>
