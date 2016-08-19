@@ -124,55 +124,23 @@ public class ImageLoaderUtil {
 
     /**
      * 加载网络图片
-     * @param activity
+     * @param context
      * @param url
      * @param defaultResId 默认的图片
      * @param imageView
      */
-    public static void load(Activity activity,String url,int defaultResId, ImageView imageView) {
+    public static void load(Context context,final String url,int defaultResId, final ImageView imageView) {
         if(!TextUtils.isEmpty(url)){
-            Glide.with(activity).load(url).placeholder(defaultResId).crossFade().into(imageView);
-        }
-    }
-    /**
-     * 加载网络图片
-     * @param fragment
-     * @param url
-     * @param defaultResId 默认的图片
-     * @param imageView
-     */
-    public static void load(Fragment fragment,String url,int defaultResId, ImageView imageView) {
-        if(!TextUtils.isEmpty(url)){
-            Glide.with(fragment).load(url).placeholder(defaultResId).crossFade().into(imageView);
+            Glide.with(context).load(url).placeholder(defaultResId).crossFade().into(new ImageViewTarget<GlideDrawable>(imageView) {
+                @Override protected void setResource(GlideDrawable resource) {
+                    final Object tag = view.getTag(imageView.getId());
+                    if(null!=tag && tag.toString().equals(url)){
+                        view.setImageDrawable(resource);
+                    }
+                }
+            });
         }
     }
 
-    /**
-     * 加载网络图片
-     * @param activity
-     * @param url
-     * @param defaultResId 默认图片
-     * @param failResId  加载失败的图片
-     * @param imageView
-     */
-    public static void load(Activity activity,String url,int defaultResId,int failResId, ImageView imageView) {
-        if(!TextUtils.isEmpty(url)){
-            Glide.with(activity).load(url).placeholder(defaultResId).error(
-                    failResId).crossFade().into(imageView);
-        }
-    }
-    /**
-     * 加载网络图片
-     * @param fragment
-     * @param url
-     * @param defaultResId 默认图片
-     * @param failResId  加载失败的图片
-     * @param imageView
-     */
-    public static void load(Fragment fragment,String url,int defaultResId,int failResId, ImageView imageView) {
-        if(!TextUtils.isEmpty(url)){
-            Glide.with(fragment).load(url).placeholder(defaultResId).error(failResId).crossFade().into(imageView);
-        }
-    }
 
 }

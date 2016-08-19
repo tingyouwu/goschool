@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.wty.app.library.widget.imageview.GridImageView;
+import com.wty.app.library.widget.imageview.ColorFilterImageView;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public abstract class NineGridImageViewAdapter<T> {
     }
 
     public ImageView generateImageView(Context context) {
-        GridImageView imageView = new GridImageView(context);
+        ColorFilterImageView imageView = new ColorFilterImageView(context);
         //把图片按比例扩大/缩小到View的宽度，居中显示
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return imageView;

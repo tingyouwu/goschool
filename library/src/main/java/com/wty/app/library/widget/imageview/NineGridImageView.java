@@ -56,11 +56,11 @@ public class NineGridImageView<T> extends ViewGroup {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height;
         int totalWidth = width - getPaddingLeft() - getPaddingRight();
+
         if (mImgDataList != null && mImgDataList.size() > 0) {
             if (mImgDataList.size() == 1 && mSingleImgSize != -1) {
                 mGridSize = mSingleImgSize > totalWidth ? totalWidth : mSingleImgSize;
             } else {
-                mImageViewList.get(0).setScaleType(ImageView.ScaleType.CENTER_CROP);
                 mGridSize = (totalWidth - mGap * (mColumnCount - 1)) / mColumnCount;
             }
             height = mGridSize * mRowCount + mGap * (mRowCount - 1) + getPaddingTop() + getPaddingBottom();
@@ -148,7 +148,13 @@ public class NineGridImageView<T> extends ViewGroup {
                     addView(iv, generateDefaultLayoutParams());
                 }
             }
+
         }
+
+        if(lists.size()==1){
+            //只有一张图片
+        }
+
         mImgDataList = lists;
         requestLayout();
     }

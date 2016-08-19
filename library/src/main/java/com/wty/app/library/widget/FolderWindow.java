@@ -36,7 +36,7 @@ public class FolderWindow extends PopupWindow {
         window = LayoutInflater.from(context).inflate(R.layout.window_folder, null);
         setContentView(window);
         setWidth(ScreenUtil.getScreenWidth(context));
-        setHeight(ScreenUtil.getScreenHeight(context) - ScreenUtil.dp2px(context, 88) - StatusBarUtil.getStatusBarHeight(context));
+        setHeight(ScreenUtil.getScreenHeight(context) - ScreenUtil.dp2px(context, 90) - StatusBarUtil.getStatusBarHeight(context));
         setAnimationStyle(R.style.WindowStyle);
         setFocusable(true);
         setOutsideTouchable(true);

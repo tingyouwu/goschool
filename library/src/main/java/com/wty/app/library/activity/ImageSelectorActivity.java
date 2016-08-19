@@ -52,6 +52,7 @@ public class ImageSelectorActivity extends BaseActivity {
     RecyclerView recyclerView;
     LinearLayout folderLayout;
     TextView folderName;
+    View toolbar;
 
     private ImageListAdapter imageAdapter;
     private FolderWindow folderWindow;
@@ -106,11 +107,11 @@ public class ImageSelectorActivity extends BaseActivity {
             cameraPath = savedInstanceState.getString(BUNDLE_CAMERA_PATH);
         }
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
         previewText = (TextView)findViewById(R.id.tv_preview_text);
         recyclerView = (RecyclerView) findViewById(R.id.folder_list);
         folderLayout = (LinearLayout) findViewById(R.id.layout_folder);
         folderName = (TextView) findViewById(R.id.tv_folder_name);
+        toolbar = findViewById(R.id.toolbar);
 
         initTitle();
 

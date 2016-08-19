@@ -46,4 +46,8 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
 
     compile 'com.facebook.rebound:rebound:0.3.8'
+    //引入appmsg
+    compile 'com.github.johnkil.android-appmsg:appmsg:1.2.0'
+    //引入动态权限6.0
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 }

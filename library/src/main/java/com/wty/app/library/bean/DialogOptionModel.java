@@ -20,6 +20,11 @@ public class DialogOptionModel implements Serializable {
 		this.value = value;
 	}
 
+    public DialogOptionModel(String text, int value) {
+        this.text = text;
+        this.value = String.valueOf(value);
+    }
+
     public String getText(){
         return text;
     }

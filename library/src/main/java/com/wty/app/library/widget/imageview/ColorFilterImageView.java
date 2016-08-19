@@ -12,14 +12,14 @@ import android.widget.ImageView;
  * Created by Jaeger on 16/2/24.
  *实现图像根据按下抬起动作变化颜色
  */
-public class GridImageView extends ImageView implements View.OnTouchListener {
+public class ColorFilterImageView extends ImageView implements View.OnTouchListener {
 
-    public GridImageView(Context context, AttributeSet attrs) {
+    public ColorFilterImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public GridImageView(Context context) {
+    public ColorFilterImageView(Context context) {
         super(context);
         init();
     }

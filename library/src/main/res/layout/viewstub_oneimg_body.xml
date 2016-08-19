@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
-    <com.wty.app.library.widget.imageview.NineGridImageView
-        android:id="@+id/multiImagView"
-        android:layout_width="match_parent"
+    <com.wty.app.library.widget.imageview.ColorFilterImageView
+        android:id="@+id/oneImagView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:imgGap="4dp"/>
+        android:maxHeight="150dp"
+        android:scaleType="centerInside"/>
 
 </LinearLayout>

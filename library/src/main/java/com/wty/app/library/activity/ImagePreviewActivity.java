@@ -71,7 +71,6 @@ public class ImagePreviewActivity extends BaseActivity{
         maxSelectNum = getIntent().getIntExtra(EXTRA_MAX_SELECT_NUM, 9);
         position = getIntent().getIntExtra(EXTRA_POSITION, 1);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
         ck_selected = (CheckBox) findViewById(R.id.checkbox_select);
         viewpager = (ImageViewPager) findViewById(R.id.preview_pager);
         adapter = new ImagePreviewPagerAdapter(this);

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +37,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
     private NavigationText navigation;
     protected BasePresenter mPresenter;
     protected View mRootView;
-    protected Toolbar toolbar;
     private SystemBarTintManager tintManager;//沉浸式状态栏
     public SweetAlertDialog loadingdialog;
 
@@ -88,13 +86,17 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
 
     @TargetApi(19)
     private void initStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && isEnableStatusBar()) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT && isEnableStatusBar()) {
             getWindow().addFlags(
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
             tintManager.setStatusBarTintResource(R.color.blue);
         }
+        else if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP && isEnableStatusBar()) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.blue));
+        }
+
     }
 
     /**
@@ -110,8 +112,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
      * 功能描述：设置标题栏
      **/
     private void setNavigation(View navigation){
-        if(toolbar == null)return;
-        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
@@ -121,6 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setCustomView(navigation, layoutParams);
+            actionBar.show();
         }
     }
 
