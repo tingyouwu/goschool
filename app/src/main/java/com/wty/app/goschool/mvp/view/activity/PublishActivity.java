@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -74,7 +73,6 @@ public class PublishActivity extends BaseActivity implements IPublishView{
 
     @Override
     public void onInitView(Bundle savedInstanceState) {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         getDefaultNavigation().setTitle("写内容");
         getDefaultNavigation().getLeftButton().setText("主页");
         getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {

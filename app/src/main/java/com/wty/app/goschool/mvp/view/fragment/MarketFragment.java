@@ -9,6 +9,7 @@ import com.wty.app.goschool.adapter.HomeAdapter;
 import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.entity.ActionItem;
 import com.wty.app.goschool.mvp.presenter.MarketPresenter;
+import com.wty.app.goschool.mvp.view.activity.MarketAddActivity;
 import com.wty.app.goschool.mvp.view.impl.IMarketView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
@@ -76,7 +77,7 @@ public class MarketFragment extends BaseFragment implements IMarketView{
         activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MarketAddActivity.startMarketAddActivity(getContext());
             }
         });
     }

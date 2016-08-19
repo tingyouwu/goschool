@@ -40,7 +40,7 @@ public class HelpAdapter extends BaseRecyclerViewMultiItemAdapter<ActionItem> {
                 if(item.getUrl().size()!=0){
                     ViewStub viewStub = helper.getView(R.id.viewStub);
                     if(viewStub != null){
-                        viewStub.setLayoutResource(R.layout.viewstub_imgbody);
+                        viewStub.setLayoutResource(R.layout.viewstub_multiimg_body);
                         viewStub.inflate();
                         //去掉viewstub  防止发生ViewStub must have a non-null ViewGroup viewParent
                         helper.removeView(R.id.viewStub);

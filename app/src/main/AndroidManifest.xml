@@ -45,32 +45,33 @@
         </activity>
 
         <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".activity.MainActivity">
         </activity>
 
         <activity
             android:name=".mvp.view.activity.PublishActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
 
         <activity
-            android:name=".activity.ImagePagerActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".mvp.view.activity.MarketAddActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+        </activity>
+
+        <activity
+            android:name=".activity.ImagePagerActivity">
         </activity>
 
         <activity
             android:name="com.wty.app.library.activity.ImageSelectorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name="com.wty.app.library.activity.ImagePreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:screenOrientation="portrait">
         </activity>
 
     </application>

@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+  <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:minHeight="?actionBarSize"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
-    </android.support.v7.widget.Toolbar>
-
     <EditText
         android:id="@+id/et_content"
-        android:layout_below="@id/toolbar"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100dip"
@@ -80,13 +74,16 @@
             android:id="@+id/et_price_new"
             android:layout_toRightOf="@id/tv_price_new"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="15sp"
             android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/bg_edittext"
             android:padding="5dp"
             android:textColor="@color/gray_font_3"
             android:hint="请输入售卖价格(元)"
+            android:numeric="integer"
+            android:maxLength="7"
             android:textColorHint="@color/gray_font_3"/>
 
     </RelativeLayout>
@@ -121,13 +118,16 @@
             android:id="@+id/et_price_old"
             android:layout_toRightOf="@id/tv_price_old"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="15sp"
             android:background="@drawable/bg_edittext"
             android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
             android:padding="5dp"
             android:textColor="@color/gray_font_3"
             android:hint="请输入原价(元)"
+            android:numeric="integer"
+            android:maxLength="7"
             android:textColorHint="@color/gray_font_3"/>
 
     </RelativeLayout>
@@ -165,9 +165,10 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:background="@null"
+            android:layout_marginRight="10dp"
             android:tag="postage"
             app:bordWidth="0.3dp"
-            app:onColor="@color/blue" />
+            app:onColor="@color/blue"/>
 
     </RelativeLayout>
 
@@ -187,12 +188,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/list_line"
-            android:layout_alignParentTop="true"/>
 
         <TextView
             android:id="@+id/tv_contact_type"
@@ -218,18 +213,22 @@
             android:layout_alignParentTop="true"/>
 
         <EditText
-            android:id="@+id/tv_contact_number"
+            android:id="@+id/et_contact_number"
             android:layout_toRightOf="@id/line_contact_type"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
             android:textSize="15sp"
             android:background="@drawable/bg_edittext"
             android:padding="5dp"
             android:textColor="@color/gray_font_3"
             android:hint="选填号码"
+            android:maxLength="20"
             android:textColorHint="@color/gray_font_3"/>
 
     </RelativeLayout>
 
-</RelativeLayout>
+  </RelativeLayout>
+
+</ScrollView>

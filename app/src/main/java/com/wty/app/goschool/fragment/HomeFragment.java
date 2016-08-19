@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 
 import com.wty.app.goschool.R;
+import com.wty.app.goschool.mvp.view.activity.MarketAddActivity;
 import com.wty.app.goschool.mvp.view.activity.PublishActivity;
 import com.wty.app.goschool.mvp.view.fragment.ComplainFragment;
 import com.wty.app.goschool.mvp.view.fragment.HelpFragment;
@@ -82,7 +83,7 @@ public class HomeFragment extends BaseFragment {
         activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublishActivity.startPublishActivity(getContext());
+                MarketAddActivity.startMarketAddActivity(getContext());
             }
         });
     }
