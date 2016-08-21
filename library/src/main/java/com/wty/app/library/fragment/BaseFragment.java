@@ -20,6 +20,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * @author wty
  * @date 2016-07-09
  * 功能描述：基本fragment，其他所有fragment需要继承
+ *
+ * 基础类做了懒加载数据
  */
 public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends Fragment implements IBase {
 
@@ -62,7 +64,7 @@ public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends F
         if(isVisibleToUser && isInitView){
             //setUserVisibleHint在onCreateView之前调用的，
             //在视图未初始化的时候就使用的话，会有空指针异常
-            initData();
+            onInitData();
         }
     }
 
@@ -70,7 +72,7 @@ public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends F
     public void onResume() {
         super.onResume();
         if(getUserVisibleHint()){
-            initData();
+            onInitData();
         }
     }
 
@@ -119,7 +121,7 @@ public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends F
     /**
      * 功能描述：初始化view以及数据
      **/
-    private void initData(){
+    private void onInitData(){
         if(!isInitData){
             isInitData = true;
             mPresenter = getPresenter();

@@ -46,7 +46,9 @@ public class SqliteAnnotationTable {
 					SqliteAnnotationField saf = new SqliteAnnotationField(f,dbf);
 					fields.add(saf);
 					fieldMaps.put(saf.getColumnName(),saf);
-					if(saf.isPrimaryKey())this.primaryKey = saf.getColumnName();
+					if(saf.isPrimaryKey()){
+						this.primaryKey = saf.getColumnName();
+					}
 				}
 			}
 		}

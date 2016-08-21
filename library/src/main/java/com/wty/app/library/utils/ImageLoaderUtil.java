@@ -118,7 +118,6 @@ public class ImageLoaderUtil {
                 .load(url)
                 .placeholder(R.drawable.img_default_loading)
                 .error(R.drawable.img_error_fail)
-                .centerCrop()
                 .into(view);
     }
 

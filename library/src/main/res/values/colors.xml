@@ -35,6 +35,7 @@
     <color name="gray_font_2">#333333</color>
     <color name="gray_font_3">#999999</color>
     <color name="gray_font_4">#e6e6e6</color>
+    <color name="gray_font_5">#aaaaaa</color>
     <color name="gray_selector">#f2f2f2</color>
     <color name="colorTextIcon">#ffffff</color>
     <color name="colorPrimaryText">#212121</color>

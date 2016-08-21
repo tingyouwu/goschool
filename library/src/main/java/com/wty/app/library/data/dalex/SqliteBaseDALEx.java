@@ -397,7 +397,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 获取该对象的id值
+	 * 获取该对象的主键id
 	 */
 	public String getPrimaryId(){
 		String result = "";
@@ -417,6 +417,26 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	/**
+	 * 设置主键ID的值
+	 **/
+	public void setPrimaryId(String id){
+		String key = getPrimaryKey();
+		if(TextUtils.isEmpty(key))return;
+		SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
+		SqliteAnnotationField field = table.getField(key);
+
+		//主键字段
+		Field f = field.getField();
+		f.setAccessible(true);
+		try {
+			f.set(this, id);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public <T extends SqliteBaseDALEx> T findById(String id){
@@ -518,7 +538,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 	
 	/** ------------------------------- save -------------------------------*/
-    public void saveOrUpdate(final SqliteBaseDALEx[] dalex){
+    public <T extends SqliteBaseDALEx> void saveOrUpdate(final T[] dalex){
         operatorWithTransaction(new OnTransactionListener() {
 
             @Override
@@ -534,11 +554,32 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
                         db.save(TABLE_NAME, values);
                     }
                 }
-
                 return true;
             }
         });
     }
+
+	/** ------------------------------- save -------------------------------*/
+	public <T extends SqliteBaseDALEx> void saveOrUpdate(final List<T> dalex){
+		operatorWithTransaction(new OnTransactionListener() {
+
+			@Override
+			public boolean onTransaction(AppDBHelper db) {
+				for(SqliteBaseDALEx model:dalex){
+					String id = model.getPrimaryId();
+					if(TextUtils.isEmpty(id))continue;
+					createTable(db);
+					ContentValues values = model.tranform2Values();
+					if (!TextUtils.isEmpty(id) && isExist(id)) {
+						db.update(TABLE_NAME, values, getPrimaryKey() + "=?", new String[]{id});
+					} else {
+						db.save(TABLE_NAME, values);
+					}
+				}
+				return true;
+			}
+		});
+	}
 
 	public void saveOrUpdate(){
 

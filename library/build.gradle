@@ -50,4 +50,6 @@ dependencies {
     compile 'com.github.johnkil.android-appmsg:appmsg:1.2.0'
     //引入动态权限6.0
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    //引入点赞功能
+    compile 'com.sackcentury:shinebutton:0.1.5'
 }
