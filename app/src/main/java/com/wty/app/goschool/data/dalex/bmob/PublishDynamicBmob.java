@@ -1,5 +1,6 @@
 package com.wty.app.goschool.data.dalex.bmob;
 
+import com.wty.app.goschool.data.annotation.bmob.BmobObjectDao;
 import com.wty.app.library.data.annotation.DatabaseField;
 import com.wty.app.library.data.annotation.DatabaseField.FieldType;
 
@@ -7,7 +8,7 @@ import com.wty.app.library.data.annotation.DatabaseField.FieldType;
  * @Decription 发布动态信息的存储类(bmob)
  * @author wty
  */
-public class PublishDynamicBmob extends BaseBmobObject {
+public class PublishDynamicBmob extends BaseBmobObject{
 	
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String gscontent;//填写内容
@@ -33,8 +34,10 @@ public class PublishDynamicBmob extends BaseBmobObject {
 	@DatabaseField(Type=FieldType.VARCHAR)
 	private String gssenderlogourl;//发送人的头像
 
-	public PublishDynamicBmob(){
-		//由于限制  类名不能超过20个字
-		super(PublishDynamicBmob.class.getSimpleName());
+	@DatabaseField(Type = FieldType.VARCHAR)
+	private String gssendtime; // 发送时间
+
+	public static PublishDynamicBmob get(){
+		return BmobObjectDao.getDao(PublishDynamicBmob.class);
 	}
 }

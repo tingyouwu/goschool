@@ -2,8 +2,11 @@ package com.wty.app.goschool.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewStub;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.activity.ImagePagerActivity;
@@ -12,8 +15,8 @@ import com.wty.app.goschool.entity.ImageSize;
 import com.wty.app.library.adapter.BaseRecyclerViewMultiItemAdapter;
 import com.wty.app.library.adapter.NineGridImageViewAdapter;
 import com.wty.app.library.utils.ImageLoaderUtil;
+import com.wty.app.library.utils.ScreenUtil;
 import com.wty.app.library.viewholder.BaseRecyclerViewHolder;
-import com.wty.app.library.widget.ItemView;
 import com.wty.app.library.widget.imageview.ColorFilterImageView;
 import com.wty.app.library.widget.imageview.NineGridImageView;
 
@@ -28,55 +31,59 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
     public MarketAdapter(Context context, List<MarketDynamicDALEx> data) {
         super(context, data);
         addItemType(MarketDynamicDALEx.No_Picture,R.layout.fragment_market_item);
-        addItemType(MarketDynamicDALEx.OnlyOne_Picture, R.layout.fragment_market_item);
-        addItemType(MarketDynamicDALEx.Multi_Picture,R.layout.fragment_market_item);
+        addItemType(MarketDynamicDALEx.OnlyOne_Picture, R.layout.fragment_market_oneitem);
+        addItemType(MarketDynamicDALEx.Multi_Picture,R.layout.fragment_market_multiitem);
     }
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, MarketDynamicDALEx item,int position) {
+        TextView tv_pricenew =helper.getView(R.id.tv_price_new);
+        TextView tv_priceold =helper.getView(R.id.tv_price_old);
+        TextView tv_content = helper.getView(R.id.tv_content);
         switch (helper.getItemViewType()){
 
             case MarketDynamicDALEx.No_Picture:
                 break;
 
             case MarketDynamicDALEx.OnlyOne_Picture:
-                ViewStub oneStub = helper.getView(R.id.viewStub);
-                if(oneStub != null){
-                    oneStub.setLayoutResource(R.layout.viewstub_oneimg_body);
-                    oneStub.inflate();
-                    //去掉viewstub  防止发生ViewStub must have a non-null ViewGroup viewParent
-                    helper.removeView(R.id.viewStub);
-                }
+                final List<String> listOne = Arrays.asList(item.getGsImage().split(","));
+                tv_content.setText(item.getGscontent());
+                tv_pricenew.setText("¥"+item.getGspricenew());
+                tv_priceold.setText("¥"+item.getGspriceold());
 
                 ColorFilterImageView img = helper.getView(R.id.oneImagView);
-                ImageLoaderUtil.load(mContext,item.getGsImage(),R.drawable.img_default_loading,img);
+
+                ViewGroup.LayoutParams lp = img.getLayoutParams();
+                lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                img.setAdjustViewBounds(true);
+                img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                img.setMaxWidth(ScreenUtil.dp2px(mContext,200));
+                img.setMaxHeight(ScreenUtil.dp2px(mContext,300));
+                img.setLayoutParams(lp);
+
+                ImageLoaderUtil.load(mContext,item.getGsImage(),img);
+                img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ImageSize imageSize = new ImageSize(v.getMeasuredWidth(),v.getMeasuredHeight());
+                        ImagePagerActivity.startImagePagerActivity(mContext,listOne,0,imageSize);
+                    }
+                });
                 break;
 
             case MarketDynamicDALEx.Multi_Picture:
+                tv_content.setText(item.getGscontent());
+                tv_pricenew.setText("¥"+item.getGspricenew());
+                tv_priceold.setText("¥"+item.getGspriceold());
                 List<String> list = Arrays.asList(item.getGsImage().split(","));
-
-                ViewStub multiStub = helper.getView(R.id.viewStub);
-                if(multiStub != null){
-                    multiStub.setLayoutResource(R.layout.viewstub_multiimg_body);
-                    multiStub.inflate();
-                    //去掉viewstub  防止发生ViewStub must have a non-null ViewGroup viewParent
-                    helper.removeView(R.id.viewStub);
-                }
 
                 NineGridImageView imageView = helper.getView(R.id.multiImagView);
                 imageView.setAdapter(mAdapter);
                 List<String> data = new ArrayList<>();
                 data.addAll(list);
                 imageView.setImagesData(data);
-
-                final ItemView itemview_digg = helper.getView(R.id.itemview_digg);
-                itemview_digg.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            itemview_digg.setGoodView();
-                            itemview_digg.setSelected(true);
-                        }
-                });
 
                 break;
             default:
@@ -87,7 +94,7 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
     private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {
         @Override
         public void onDisplayImage(Context context, ImageView imageView, String path) {
-            ImageLoaderUtil.load(mContext,path,R.drawable.img_default_loading,imageView);
+            ImageLoaderUtil.load(mContext,path,imageView);
         }
 
         @Override

@@ -67,11 +67,10 @@
         android:id="@+id/oneImagView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:maxHeight="150dp"
-        android:scaleType="centerInside"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="6dp"
         android:layout_below="@id/iv_head"/>
 
     <TextView

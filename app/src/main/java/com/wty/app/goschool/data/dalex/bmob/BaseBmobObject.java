@@ -5,11 +5,13 @@ import com.wty.app.goschool.data.annotation.bmob.BmobAnnotationCache;
 import com.wty.app.goschool.data.annotation.bmob.BmobAnnotationField;
 import com.wty.app.goschool.data.annotation.bmob.BmobAnnotationTable;
 import com.wty.app.library.data.annotation.DatabaseField;
+import com.wty.app.library.data.annotation.SqliteDao;
 import com.wty.app.library.data.dalex.SqliteBaseDALEx;
 
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +24,9 @@ import cn.bmob.v3.BmobObject;
  **/
 public abstract class BaseBmobObject extends BmobObject {
 
-    public BaseBmobObject(String tableName){
-        setTableName(tableName);
+    public BaseBmobObject(){
+        //由于限制  类名不能超过20个字
+        setTableName(this.getClass().getSimpleName());
     }
 
     /**
@@ -139,5 +142,4 @@ public abstract class BaseBmobObject extends BmobObject {
             }
         }
     }
-
 }

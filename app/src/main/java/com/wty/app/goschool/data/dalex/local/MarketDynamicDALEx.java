@@ -6,9 +6,6 @@ import com.wty.app.library.data.annotation.SqliteDao;
 import com.wty.app.library.data.dalex.SqliteBaseDALEx;
 import com.wty.app.library.entity.IMultiItemEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @Decription 跳蚤市场信息存储类
  * @author wty

@@ -1,6 +1,6 @@
 package com.wty.app.goschool.mvp.model.impl;
 
-import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
+import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.library.mvp.model.IBaseModel;
 import com.wty.app.library.mvp.presenter.ICallBack;
 
@@ -13,10 +13,10 @@ public interface IMarketModel extends IBaseModel{
     /**
      * 加载吐槽
      **/
-    void loadMoreComplain(PublishDynamicDALEx data, ICallBack<List<PublishDynamicDALEx>> callBack);
+    void loadMoreComplain(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
 
     /**
      * 刷新吐槽
      **/
-    void refreshMoreComplain(PublishDynamicDALEx data, ICallBack<List<PublishDynamicDALEx>> callBack);
+    void refreshMoreComplain(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
 }

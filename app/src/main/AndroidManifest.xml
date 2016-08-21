@@ -59,7 +59,8 @@
         </activity>
 
         <activity
-            android:name=".activity.ImagePagerActivity">
+            android:name=".activity.ImagePagerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity

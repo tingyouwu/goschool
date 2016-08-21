@@ -40,6 +40,9 @@ public class PublishDynamicDALEx extends SqliteBaseDALEx {
 	@DatabaseField(Type=FieldType.VARCHAR)
 	private String gssenderlogourl;//发送人的头像
 
+	@DatabaseField(Type = FieldType.VARCHAR)
+	private String gssendtime; // 发送时间
+
 	public static PublishDynamicDALEx get() {
 		return SqliteDao.getDao(PublishDynamicDALEx.class);
 	}

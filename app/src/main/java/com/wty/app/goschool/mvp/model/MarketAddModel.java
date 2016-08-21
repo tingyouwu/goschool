@@ -1,6 +1,6 @@
 package com.wty.app.goschool.mvp.model;
 
-import com.wty.app.goschool.data.dalex.bmob.PublishDynamicBmob;
+import com.wty.app.goschool.data.dalex.bmob.MarketDynamicBmob;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.model.impl.IMarketAddModel;
 import com.wty.app.library.mvp.presenter.ICallBack;
@@ -15,7 +15,7 @@ public class MarketAddModel implements IMarketAddModel{
 
     @Override
     public void submit(final MarketDynamicDALEx data, final ICallBack<String> callBack) {
-        PublishDynamicBmob bmob = new PublishDynamicBmob();
+        MarketDynamicBmob bmob = new MarketDynamicBmob();
         //Bmob数据模型
         bmob.setAnnotationField(data);
         bmob.save(new SaveListener<String>() {

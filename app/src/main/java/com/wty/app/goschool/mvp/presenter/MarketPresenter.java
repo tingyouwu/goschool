@@ -1,6 +1,6 @@
 package com.wty.app.goschool.mvp.presenter;
 
-import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
+import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.model.MarketModel;
 import com.wty.app.goschool.mvp.model.impl.IMarketModel;
 import com.wty.app.goschool.mvp.view.impl.IMarketView;
@@ -27,9 +27,9 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
             return;
         }
 
-        mMarketModel.refreshMoreComplain(new PublishDynamicDALEx(), new ICallBack<List<PublishDynamicDALEx>>() {
+        mMarketModel.refreshMoreComplain(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
-            public void onSuccess(List<PublishDynamicDALEx> data) {
+            public void onSuccess(List<MarketDynamicDALEx> data) {
                 mView.onRefreshComplete(data.size()+"条新内容");
                 mView.refreshMore(data);
             }
@@ -49,9 +49,9 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
             return;
         }
 
-        mMarketModel.loadMoreComplain(new PublishDynamicDALEx(), new ICallBack<List<PublishDynamicDALEx>>() {
+        mMarketModel.loadMoreComplain(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
-            public void onSuccess(List<PublishDynamicDALEx> data) {
+            public void onSuccess(List<MarketDynamicDALEx> data) {
                 mView.onLoadMoreComplete();
                 mView.loadMore(data);
             }
