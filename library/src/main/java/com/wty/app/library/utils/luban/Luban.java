@@ -1,6 +1,5 @@
 package com.wty.app.library.utils.luban;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -20,9 +19,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import top.zibin.luban.OnCompressListener;
 
-import static top.zibin.luban.Preconditions.checkNotNull;
+import static com.wty.app.library.utils.luban.Preconditions.checkNotNull;
 
 public class Luban {
 
@@ -85,7 +83,7 @@ public class Luban {
 
         if (compressListener != null) compressListener.onStart();
 
-        if (gear == top.zibin.luban.Luban.FIRST_GEAR)
+        if (gear == Luban.FIRST_GEAR)
             Observable.just(mFile)
                     .map(new Func1<File, File>() {
                         @Override
@@ -114,7 +112,7 @@ public class Luban {
                             if (compressListener != null) compressListener.onSuccess(file);
                         }
                     });
-        else if (gear == top.zibin.luban.Luban.THIRD_GEAR)
+        else if (gear == Luban.THIRD_GEAR)
             Observable.just(mFile)
                     .map(new Func1<File, File>() {
                         @Override
