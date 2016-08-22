@@ -3,7 +3,7 @@ package com.wty.app.goschool.mvp.model;
 import com.wty.app.goschool.data.dalex.bmob.PublishDynamicBmob;
 import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.mvp.model.impl.IPublishModel;
-import com.wty.app.library.mvp.presenter.ICallBack;
+import com.wty.app.library.callback.ICallBack;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;

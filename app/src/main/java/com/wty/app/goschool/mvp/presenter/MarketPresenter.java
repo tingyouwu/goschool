@@ -4,8 +4,8 @@ import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.model.MarketModel;
 import com.wty.app.goschool.mvp.model.impl.IMarketModel;
 import com.wty.app.goschool.mvp.view.impl.IMarketView;
+import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.mvp.presenter.BasePresenter;
-import com.wty.app.library.mvp.presenter.ICallBack;
 
 import java.util.List;
 
@@ -27,10 +27,10 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
             return;
         }
 
-        mMarketModel.refreshMoreComplain(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
+        mMarketModel.refreshMoreMarket(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
             public void onSuccess(List<MarketDynamicDALEx> data) {
-                mView.onRefreshComplete(data.size()+"条新内容");
+                mView.onRefreshComplete(data.size() + "条新内容");
                 mView.refreshMore(data);
             }
 
@@ -49,7 +49,7 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
             return;
         }
 
-        mMarketModel.loadMoreComplain(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
+        mMarketModel.loadMoreMarket(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
             public void onSuccess(List<MarketDynamicDALEx> data) {
                 mView.onLoadMoreComplete();
@@ -61,6 +61,10 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
 
             }
         });
+    }
+
+    public void loadMarketFirst(){
+
     }
 
 }

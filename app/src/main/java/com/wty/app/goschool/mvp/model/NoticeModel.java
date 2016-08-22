@@ -1,9 +1,8 @@
 package com.wty.app.goschool.mvp.model;
 
 import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
-import com.wty.app.goschool.mvp.model.impl.IMarketModel;
 import com.wty.app.goschool.mvp.model.impl.INoticeModel;
-import com.wty.app.library.mvp.presenter.ICallBack;
+import com.wty.app.library.callback.ICallBack;
 
 import java.util.List;
 

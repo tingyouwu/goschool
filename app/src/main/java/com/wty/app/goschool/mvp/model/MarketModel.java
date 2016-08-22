@@ -3,8 +3,9 @@ package com.wty.app.goschool.mvp.model;
 import com.wty.app.goschool.data.dalex.bmob.MarketDynamicBmob;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.model.impl.IMarketModel;
-import com.wty.app.library.mvp.presenter.ICallBack;
+import com.wty.app.library.callback.ICallBack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -17,12 +18,12 @@ import cn.bmob.v3.listener.FindListener;
 public class MarketModel implements IMarketModel{
 
     @Override
-    public void loadMoreComplain(MarketDynamicDALEx data, final ICallBack<List<MarketDynamicDALEx>> callBack) {
+    public void loadMoreMarket(MarketDynamicDALEx data, final ICallBack<List<MarketDynamicDALEx>> callBack) {
 
     }
 
     @Override
-    public void refreshMoreComplain(MarketDynamicDALEx data, final ICallBack<List<MarketDynamicDALEx>> callBack) {
+    public void refreshMoreMarket(MarketDynamicDALEx data, final ICallBack<List<MarketDynamicDALEx>> callBack) {
         BmobQuery<MarketDynamicBmob> query = new BmobQuery<MarketDynamicBmob>();
 
         query.findObjects(new FindListener<MarketDynamicBmob>() {
@@ -36,5 +37,12 @@ public class MarketModel implements IMarketModel{
                 }
             }
         });
+    }
+
+    @Override
+    public void loadMarketFirst(ICallBack<List<MarketDynamicDALEx>> callBack) {
+
+        List<MarketDynamicDALEx> list = new ArrayList<MarketDynamicDALEx>();
+
     }
 }

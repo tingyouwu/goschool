@@ -4,8 +4,8 @@ import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.mvp.model.PublishModel;
 import com.wty.app.goschool.mvp.model.impl.IPublishModel;
 import com.wty.app.goschool.mvp.view.impl.IPublishView;
+import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.mvp.presenter.BasePresenter;
-import com.wty.app.library.mvp.presenter.ICallBack;
 import com.wty.app.library.widget.sweetdialog.OnDismissCallbackListener;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;

@@ -4,8 +4,8 @@ import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.mvp.model.PictureModel;
 import com.wty.app.goschool.mvp.model.impl.IPictureModel;
 import com.wty.app.goschool.mvp.view.impl.INoticeView;
+import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.mvp.presenter.BasePresenter;
-import com.wty.app.library.mvp.presenter.ICallBack;
 
 import java.util.List;
 

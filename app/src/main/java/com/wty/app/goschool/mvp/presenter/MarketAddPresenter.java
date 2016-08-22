@@ -4,8 +4,8 @@ import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.model.MarketAddModel;
 import com.wty.app.goschool.mvp.model.impl.IMarketAddModel;
 import com.wty.app.goschool.mvp.view.impl.IMarketAddView;
+import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.mvp.presenter.BasePresenter;
-import com.wty.app.library.mvp.presenter.ICallBack;
 import com.wty.app.library.widget.sweetdialog.OnDismissCallbackListener;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -28,6 +28,7 @@ public class MarketAddPresenter extends BasePresenter<IMarketAddView>{
             return;
         }
         mView.showLoading("请稍候，正在发布...");
+
         mMarketAddModel.submit(data, new ICallBack<String>() {
             @Override
             public void onSuccess(String objectid) {

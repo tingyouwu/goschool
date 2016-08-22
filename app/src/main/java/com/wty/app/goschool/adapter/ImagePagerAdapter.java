@@ -111,7 +111,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(imageSize.getWidth(), imageSize.getHeight());
                 layoutParams.gravity = Gravity.CENTER;
                 smallImageView.setLayoutParams(layoutParams);
-                smallImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                smallImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 ((FrameLayout)view).addView(smallImageView);
             }
 
@@ -128,8 +128,9 @@ public class ImagePagerAdapter extends PagerAdapter {
 
             Glide.with(context)
                     .load(imgurl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存多个尺寸
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存多个尺寸
                     .thumbnail(0.1f)//先显示缩略图  缩略图为原图的1/10
+                    .override(200,200)
                     .error(R.drawable.img_error_fail)
                     .into(new GlideDrawableImageViewTarget(imageView) {
                         @Override

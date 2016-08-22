@@ -15,7 +15,6 @@ import com.wty.app.library.fragment.BaseFragment;
 import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
-import com.wty.app.library.widget.loadingview.LoadingState;
 import com.wty.app.library.widget.loadingview.LoadingView;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
 import com.wty.app.library.widget.xrecyclerview.XRecyclerView;
@@ -66,7 +65,8 @@ public class MarketFragment extends BaseFragment implements IMarketView{
             }
 
         });
-        mLoadingView.build();
+
+        ((MarketPresenter)mPresenter).loadMarketFirst();
 
     }
 

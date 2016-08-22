@@ -1,8 +1,8 @@
 package com.wty.app.goschool.mvp.model.impl;
 
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
+import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.mvp.model.IBaseModel;
-import com.wty.app.library.mvp.presenter.ICallBack;
 
 import java.util.List;
 
@@ -11,12 +11,17 @@ import java.util.List;
  */
 public interface IMarketModel extends IBaseModel{
     /**
-     * 加载吐槽
+     * 加载更多跳蚤信息
      **/
-    void loadMoreComplain(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
+    void loadMoreMarket(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
 
     /**
-     * 刷新吐槽
+     * 刷新更多跳蚤信息
      **/
-    void refreshMoreComplain(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
+    void refreshMoreMarket(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
+
+    /**
+     * 首次进入加载数据
+     **/
+    void loadMarketFirst(ICallBack<List<MarketDynamicDALEx>> callBack);
 }

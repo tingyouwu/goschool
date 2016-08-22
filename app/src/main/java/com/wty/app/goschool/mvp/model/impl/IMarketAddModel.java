@@ -1,8 +1,8 @@
 package com.wty.app.goschool.mvp.model.impl;
 
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
+import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.mvp.model.IBaseModel;
-import com.wty.app.library.mvp.presenter.ICallBack;
 
 /**
  * @author wty
