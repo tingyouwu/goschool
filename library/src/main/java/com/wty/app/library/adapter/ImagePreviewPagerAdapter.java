@@ -2,27 +2,15 @@ package com.wty.app.library.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.ListHolder;
-import com.orhanobut.dialogplus.OnItemClickListener;
 import com.wty.app.library.R;
 import com.wty.app.library.entity.ImageModel;
-import com.wty.app.library.utils.ScreenUtil;
-import com.wty.app.library.widget.xrecyclerview.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +59,7 @@ public class ImagePreviewPagerAdapter extends PagerAdapter {
 
             Glide.with(context)
                     .load(imgurl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存多个尺寸
-                    .thumbnail(0.1f)//先显示缩略图  缩略图为原图的1/10
+                    .diskCacheStrategy( DiskCacheStrategy.NONE )
                     .error(R.drawable.img_error_fail)
                     .into(imageView);
 

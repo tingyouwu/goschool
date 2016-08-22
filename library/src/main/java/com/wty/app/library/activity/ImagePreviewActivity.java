@@ -77,6 +77,7 @@ public class ImagePreviewActivity extends BaseActivity{
         adapter.setDatas(images);
         viewpager.setAdapter(adapter);
         viewpager.setCurrentItem(position);
+        viewpager.setOffscreenPageLimit(4);
 
         registerListener();
         onSelectNumChange();
