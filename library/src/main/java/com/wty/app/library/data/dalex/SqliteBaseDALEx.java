@@ -543,7 +543,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 
             @Override
             public boolean onTransaction(AppDBHelper db) {
-                for(SqliteBaseDALEx model:dalex){
+                for(T model:dalex){
                     String id = model.getPrimaryId();
                     if(TextUtils.isEmpty(id))continue;
                     createTable(db);
@@ -565,7 +565,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 
 			@Override
 			public boolean onTransaction(AppDBHelper db) {
-				for(SqliteBaseDALEx model:dalex){
+				for(T model:dalex){
 					String id = model.getPrimaryId();
 					if(TextUtils.isEmpty(id))continue;
 					createTable(db);

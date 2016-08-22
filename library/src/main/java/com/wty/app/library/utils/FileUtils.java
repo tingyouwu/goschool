@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.wty.app.library.base.AppContext;
+import com.wty.app.library.base.AppConstant;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,10 +21,10 @@ public class FileUtils {
     private static final int MB = 1024 * 1024;//1MB
 
     public static File createCameraFile(Context context) {
-        return createMediaFile(context, AppContext.CAMERA_PATH);
+        return createMediaFile(context, AppConstant.CAMERA_PATH);
     }
     public static File createCropFile(Context context) {
-        return createMediaFile(context,AppContext.CROP_PATH);
+        return createMediaFile(context,AppConstant.CROP_PATH);
     }
 
     /**
@@ -79,12 +79,12 @@ public class FileUtils {
         File temp = null;
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
         try {
-            File root = new File(AppContext.CAMERA_PATH);
+            File root = new File(AppConstant.CAMERA_PATH);
             if(!root.exists()){
                 root.mkdirs();
             }
 
-            File picFile = new File(AppContext.CAMERA_PATH,timeStamp+POSTFIX);
+            File picFile = new File(AppConstant.CAMERA_PATH,timeStamp+POSTFIX);
             if(!picFile.exists()){
                     picFile.createNewFile();
             }

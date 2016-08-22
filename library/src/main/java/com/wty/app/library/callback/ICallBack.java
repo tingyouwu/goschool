@@ -1,4 +1,4 @@
-package com.wty.app.library.mvp.presenter;
+package com.wty.app.library.callback;
 
 /**
  * @author wty
@@ -6,5 +6,5 @@ package com.wty.app.library.mvp.presenter;
  */
 public interface ICallBack<T> {
     void onSuccess(T data);
-     void onFaild(String msg);
+    void onFaild(String msg);
 }
