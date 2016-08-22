@@ -1,13 +1,13 @@
 package com.wty.app.goschool.mvp.model;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.wty.app.goschool.data.dalex.bmob.MarketDynamicBmob;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.model.impl.IMarketAddModel;
 import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.utils.luban.Luban;
+import com.wty.app.library.utils.luban.OnCompressListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
-import top.zibin.luban.OnCompressListener;
 
 /**
  * @author wty
