@@ -60,7 +60,7 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
                 img.setAdjustViewBounds(true);
                 img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 img.setMaxWidth(ScreenUtil.dp2px(mContext,200));
-                img.setMaxHeight(ScreenUtil.dp2px(mContext,300));
+                img.setMaxHeight(ScreenUtil.dp2px(mContext,250));
                 img.setLayoutParams(lp);
 
                 ImageLoaderUtil.load(mContext,item.getGsImage(),img);

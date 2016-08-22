@@ -18,8 +18,10 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/flb_refresh"
         app:fabSize="mini"
+        app:backgroundTint = "@color/white"
+        app:elevation="0dp"
         app:layout_behavior = "com.wty.app.library.widget.fab.ScrollAwareFABBehaviorDefault"/>
 
     <com.wty.app.library.widget.loadingview.LoadingView

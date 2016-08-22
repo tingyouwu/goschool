@@ -68,8 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginRight="6dp"
         android:layout_below="@id/iv_head"/>
 
@@ -78,12 +78,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/oneImagView"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="6dp"
         android:paddingLeft="5dp"
         android:text="¥300.00"
         android:textColor="@color/red"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tv_price_old"
@@ -104,13 +103,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_price_new"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:text="测试一下一下途径"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_postage"

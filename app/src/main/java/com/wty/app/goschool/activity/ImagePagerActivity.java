@@ -64,6 +64,7 @@ public class ImagePagerActivity extends BaseActivity{
         mAdapter.setDatas(imgUrls);
         mAdapter.setImageSize(imageSize);
         viewPager.setAdapter(mAdapter);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

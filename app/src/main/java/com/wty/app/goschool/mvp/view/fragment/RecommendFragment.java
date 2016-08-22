@@ -1,8 +1,12 @@
 package com.wty.app.goschool.mvp.view.fragment;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.widget.HorizontalScrollView;
 
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.HomeAdapter;
@@ -28,7 +32,6 @@ import butterknife.Bind;
  * @author wty
  */
 public class RecommendFragment extends BaseFragment implements IRecommendView{
-
     BaseRecyclerViewAdapter adapter;
 
     @Bind(R.id.listview_life)
@@ -57,8 +60,6 @@ public class RecommendFragment extends BaseFragment implements IRecommendView{
 
             @Override
             public void onLoadMore() {
-//                LoadMoreAddData();
-//                listview.loadMoreComplete();
                 listview.setNoMore("亲,已经是最后一页了！");
             }
 
