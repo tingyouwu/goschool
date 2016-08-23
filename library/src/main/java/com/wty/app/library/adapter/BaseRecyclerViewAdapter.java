@@ -175,6 +175,11 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         addData(data);
     }
 
+    public void clearData(){
+        this.mData.clear();
+        notifyDataSetChanged();
+    }
+
     public List<T> getData() {
         return mData;
     }

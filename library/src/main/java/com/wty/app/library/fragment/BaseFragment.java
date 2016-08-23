@@ -23,9 +23,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  *
  * 基础类做了懒加载数据
  */
-public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends Fragment implements IBase {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements IBase<P> {
 
-    protected BasePresenter mPresenter;
+    protected P mPresenter;
     protected BaseActivity activity;
     protected View mRootView;
     protected boolean isInitData = false;//是否已经初始化数据
@@ -65,7 +65,9 @@ public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends F
             //setUserVisibleHint在onCreateView之前调用的，
             //在视图未初始化的时候就使用的话，会有空指针异常
             onInitData();
+            doWorkOnResume();
         }
+
     }
 
     @Override
@@ -106,6 +108,13 @@ public abstract class BaseFragment<T extends BasePresenter<IBaseView>> extends F
      **/
     public void setActivity(BaseActivity activity){
         this.activity = activity;
+    }
+
+    /**
+     * 功能描述：当fragment处于可见并且已经初始之后，做一些操作
+     **/
+    public void doWorkOnResume(){
+
     }
 
     /**

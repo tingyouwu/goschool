@@ -40,7 +40,7 @@ public class LoadingView extends FrameLayout {
     private String mLoaded_error_text = "没有内容,我家程序员跑路了！";//后台或者本地出现错误提示
     private int mErrorIco = R.drawable.icon_data_error;//后台或者本地出现错误提示图标
 
-    public boolean btn_empty_ennable = false;
+    public boolean btn_empty_ennable = true;
     public boolean btn_error_ennable = true;
     public boolean btn_nonet_ennable = true;
 
@@ -82,16 +82,23 @@ public class LoadingView extends FrameLayout {
         return this;
     }
 
-    public OnRetryListener mOnRetryListener;
+    private OnRetryListener mOnRetryListener;
+    private OnEmptyListener mOnEmptyListener;
 
     public LoadingView withOnRetryListener(OnRetryListener mOnRetryListener) {
         this.mOnRetryListener = mOnRetryListener;
         return this;
     }
 
+    public LoadingView withOnEmptyListener(OnEmptyListener mOnEmptyListener){
+        this.mOnEmptyListener = mOnEmptyListener;
+        return this;
+    }
+
     private LoadingState mState;
 
     public void setState(LoadingState state) {
+        this.setVisibility(VISIBLE);
         if (mState == state) {
             return;
         } else if (state == LoadingState.STATE_LOADING) {
@@ -134,6 +141,15 @@ public class LoadingView extends FrameLayout {
                 if (btn_empty_ennable) {
                     btn_loaded.setVisibility(VISIBLE);
                     btn_loaded.setText(btn_empty_text);
+                    btn_loaded.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mOnEmptyListener != null) {
+                                setState(LoadingState.STATE_LOADING);
+                                mOnEmptyListener.onClick();
+                            }
+                        }
+                    });
                 } else {
                     btn_loaded.setVisibility(GONE);
                 }
@@ -145,6 +161,15 @@ public class LoadingView extends FrameLayout {
                 if (btn_error_ennable) {
                     btn_loaded.setVisibility(VISIBLE);
                     btn_loaded.setText(btn_error_text);
+                    btn_loaded.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mOnRetryListener != null) {
+                                setState(LoadingState.STATE_LOADING);
+                                mOnRetryListener.onRetry();
+                            }
+                        }
+                    });
                 } else {
                     btn_loaded.setVisibility(GONE);
                 }
@@ -156,6 +181,15 @@ public class LoadingView extends FrameLayout {
                 if (btn_nonet_ennable) {
                     btn_loaded.setVisibility(VISIBLE);
                     btn_loaded.setText(btn_nonet_text);
+                    btn_loaded.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mOnRetryListener != null) {
+                                setState(LoadingState.STATE_LOADING);
+                                mOnRetryListener.onRetry();
+                            }
+                        }
+                    });
                 } else {
                     btn_loaded.setVisibility(GONE);
                 }
@@ -239,16 +273,6 @@ public class LoadingView extends FrameLayout {
         btn_loaded = (Button) view.findViewById(R.id.btn_loaded);
         iv_loading = (ImageView) view.findViewById(R.id.iv_loading);
         iv_loaded = (ImageView) view.findViewById(R.id.iv_loaded);
-
-        btn_loaded.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnRetryListener != null) {
-                    setState(LoadingState.STATE_LOADING);
-                    mOnRetryListener.onRetry();
-                }
-            }
-        });
 
         if (NetWorkUtils.isNetworkConnected(mContext)) {
             setState(LoadingState.STATE_LOADING);

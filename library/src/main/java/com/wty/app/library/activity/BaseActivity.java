@@ -32,10 +32,10 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * 所有activity的基类
  * 一个高大上的名字：模版方法设计模式
  **/
-public abstract class BaseActivity extends AppCompatActivity implements IBase {
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IBase<P> {
 
     private NavigationText navigation;
-    protected BasePresenter mPresenter;
+    protected P mPresenter;
     protected View mRootView;
     private SystemBarTintManager tintManager;//沉浸式状态栏
     public SweetAlertDialog loadingdialog;

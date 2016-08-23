@@ -9,11 +9,11 @@ import com.wty.app.library.mvp.presenter.BasePresenter;
  * @author wty
  * 基础事件
  */
-public interface IBase {
+public interface IBase<P> {
     /**
      * 功能描述：获取当前的presenter
      **/
-    BasePresenter getPresenter();
+    P getPresenter();
 
     /**
      * 功能描述：给view绑定数据

@@ -3,7 +3,6 @@ package com.wty.app.library.adapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-
 import com.wty.app.library.fragment.BaseFragment;
 
 import java.util.ArrayList;
