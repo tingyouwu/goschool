@@ -67,7 +67,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
             onInitData();
             doWorkOnResume();
         }
-
     }
 
     @Override
@@ -75,6 +74,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         super.onResume();
         if(getUserVisibleHint()){
             onInitData();
+            doWorkOnResume();
         }
     }
 
