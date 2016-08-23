@@ -69,6 +69,11 @@ public class HelpFragment extends BaseFragment implements IHelpView{
     }
 
     @Override
+    public void doWorkOnResume() {
+        initFragmentActionBar("主页");
+    }
+
+    @Override
     public void initFragmentActionBar(String title) {
         super.initFragmentActionBar(title);
         activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {

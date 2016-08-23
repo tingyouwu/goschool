@@ -12,7 +12,6 @@ import com.wty.app.goschool.mvp.presenter.NoticePresenter;
 import com.wty.app.goschool.mvp.view.impl.INoticeView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
-import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
@@ -28,7 +27,7 @@ import butterknife.Bind;
  * 主页->通知
  * @author wty
  */
-public class NoticeFragment extends BaseFragment implements INoticeView{
+public class NoticeFragment extends BaseFragment<NoticePresenter> implements INoticeView{
 
     BaseRecyclerViewAdapter adapter;
 
@@ -36,7 +35,7 @@ public class NoticeFragment extends BaseFragment implements INoticeView{
     XRecyclerView listview;
 
     @Override
-    public BasePresenter getPresenter() {
+    public NoticePresenter getPresenter() {
         return new NoticePresenter();
     }
 
@@ -68,6 +67,11 @@ public class NoticeFragment extends BaseFragment implements INoticeView{
     @Override
     public int getLayoutResource() {
         return R.layout.fragment_life;
+    }
+
+    @Override
+    public void doWorkOnResume() {
+        initFragmentActionBar("主页");
     }
 
     @Override

@@ -2,10 +2,7 @@ package com.wty.app.goschool.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wty.app.goschool.R;
@@ -15,7 +12,6 @@ import com.wty.app.goschool.entity.ImageSize;
 import com.wty.app.library.adapter.BaseRecyclerViewMultiItemAdapter;
 import com.wty.app.library.adapter.NineGridImageViewAdapter;
 import com.wty.app.library.utils.ImageLoaderUtil;
-import com.wty.app.library.utils.ScreenUtil;
 import com.wty.app.library.viewholder.BaseRecyclerViewHolder;
 import com.wty.app.library.widget.imageview.ColorFilterImageView;
 import com.wty.app.library.widget.imageview.NineGridImageView;
@@ -30,7 +26,6 @@ import java.util.List;
 public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynamicDALEx> {
     public MarketAdapter(Context context, List<MarketDynamicDALEx> data) {
         super(context, data);
-        addItemType(MarketDynamicDALEx.No_Picture,R.layout.fragment_market_item);
         addItemType(MarketDynamicDALEx.OnlyOne_Picture, R.layout.fragment_market_oneitem);
         addItemType(MarketDynamicDALEx.Multi_Picture,R.layout.fragment_market_multiitem);
     }
@@ -52,17 +47,6 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
                 tv_priceold.setText("¥"+item.getGspriceold());
 
                 ColorFilterImageView img = helper.getView(R.id.oneImagView);
-
-                ViewGroup.LayoutParams lp = img.getLayoutParams();
-                lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
-                img.setAdjustViewBounds(true);
-                img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                img.setMaxWidth(ScreenUtil.dp2px(mContext,200));
-                img.setMaxHeight(ScreenUtil.dp2px(mContext,250));
-                img.setLayoutParams(lp);
-
                 ImageLoaderUtil.load(mContext,item.getGsImage(),img);
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override

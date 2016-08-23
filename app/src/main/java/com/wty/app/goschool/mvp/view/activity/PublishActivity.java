@@ -31,7 +31,6 @@ import com.wty.app.library.base.AppConstant;
 import com.wty.app.library.bean.DialogOptionModel;
 import com.wty.app.library.entity.ImageModel;
 import com.wty.app.library.entity.ImageUriEntity;
-import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.CommonUtil;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DialogHeaderView;
@@ -46,7 +45,7 @@ import butterknife.Bind;
  * @Decription 发布新内容
  * @author wty
  */
-public class PublishActivity extends BaseActivity implements IPublishView{
+public class PublishActivity extends BaseActivity<PublishPresenter> implements IPublishView{
 
     @Bind(R.id.et_content)
     EditText et_content;
@@ -67,7 +66,7 @@ public class PublishActivity extends BaseActivity implements IPublishView{
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public PublishPresenter getPresenter() {
         return new PublishPresenter();
     }
 
@@ -98,7 +97,7 @@ public class PublishActivity extends BaseActivity implements IPublishView{
     @Override
     protected boolean submit() {
         if(super.submit()){
-            ((PublishPresenter)mPresenter).submit(getSubmitData());
+            mPresenter.submit(getSubmitData());
         }
         return true;
     }

@@ -30,7 +30,7 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
         mMarketModel.refreshMoreMarket(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
             public void onSuccess(List<MarketDynamicDALEx> data) {
-                mView.onRefreshComplete(data.size() + "条新内容");
+                mView.onRefreshComplete(data.size());
                 mView.refreshMore(data);
             }
 
@@ -52,7 +52,7 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
         mMarketModel.loadMoreMarket(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
             public void onSuccess(List<MarketDynamicDALEx> data) {
-                mView.onLoadMoreComplete();
+                mView.onLoadMoreComplete(data.size());
                 mView.loadMore(data);
             }
 
@@ -64,7 +64,7 @@ public class MarketPresenter extends BasePresenter<IMarketView>{
     }
 
     public void loadMarketFirst(){
-
+        mView.showNoNet();
     }
 
 }

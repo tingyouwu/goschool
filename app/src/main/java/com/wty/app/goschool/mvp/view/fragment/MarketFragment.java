@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.devspark.appmsg.AppMsg;
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.MarketAdapter;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
@@ -12,10 +13,12 @@ import com.wty.app.goschool.mvp.view.activity.MarketAddActivity;
 import com.wty.app.goschool.mvp.view.impl.IMarketView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
-import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
+import com.wty.app.library.widget.loadingview.LoadingState;
 import com.wty.app.library.widget.loadingview.LoadingView;
+import com.wty.app.library.widget.loadingview.OnEmptyListener;
+import com.wty.app.library.widget.loadingview.OnRetryListener;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
 import com.wty.app.library.widget.xrecyclerview.XRecyclerView;
 
@@ -28,10 +31,10 @@ import butterknife.Bind;
  * 主页->寻宝贝（跳蚤市场）
  * @author wty
  */
-public class MarketFragment extends BaseFragment implements IMarketView{
+public class MarketFragment extends BaseFragment<MarketPresenter> implements IMarketView{
 
     BaseRecyclerViewAdapter adapter;
-    private List<MarketDynamicDALEx> mDataList = new ArrayList<MarketDynamicDALEx>();
+    private List<MarketDynamicDALEx> mDataList = new ArrayList<>();
 
     @Bind(R.id.listview_life)
     XRecyclerView listview;
@@ -39,7 +42,7 @@ public class MarketFragment extends BaseFragment implements IMarketView{
     LoadingView mLoadingView;
 
     @Override
-    public BasePresenter getPresenter() {
+    public MarketPresenter getPresenter() {
         return new MarketPresenter();
     }
 
@@ -47,27 +50,37 @@ public class MarketFragment extends BaseFragment implements IMarketView{
     public void onInitView(Bundle savedInstanceState) {
         adapter = new MarketAdapter(getContext(),mDataList);
         listview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listview.setAdapter(adapter);
         listview.addItemDecoration(new DivItemDecoration(15, false));
         listview.setLoadingMoreProgressStyle(ProgressStyle.LineSpinFadeLoader);
         listview.setRefreshProgressStyle(ProgressStyle.BallClipRotatePulse);
-        listview.setLoadingMoreEnabled(false);
-
         listview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                ((MarketPresenter)mPresenter).refreshMoreComplain();
+                mPresenter.refreshMoreComplain();
             }
 
             @Override
             public void onLoadMore() {
-                ((MarketPresenter)mPresenter).loadMoreComplain();
+                mPresenter.loadMoreComplain();
             }
 
         });
+        listview.setAdapter(adapter);
 
-        ((MarketPresenter)mPresenter).loadMarketFirst();
+        mLoadingView.withOnEmptyListener(new OnEmptyListener() {
+            @Override
+            public void onClick() {
+                mPresenter.refreshMoreComplain();
+            }
+        }).withOnRetryListener(new OnRetryListener() {
+            @Override
+            public void onRetry() {
+                mPresenter.refreshMoreComplain();
+            }
+        }).build();
 
+        // 初始化进入页面加载数据
+        mPresenter.loadMarketFirst();
     }
 
     @Override
@@ -76,9 +89,14 @@ public class MarketFragment extends BaseFragment implements IMarketView{
     }
 
     @Override
+    public void doWorkOnResume() {
+        initFragmentActionBar("主页");
+    }
+
+    @Override
     public void initFragmentActionBar(String title) {
         super.initFragmentActionBar(title);
-        activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
+        activity.getDefaultNavigation().setRightButton("发布", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MarketAddActivity.startMarketAddActivity(getContext());
@@ -93,16 +111,31 @@ public class MarketFragment extends BaseFragment implements IMarketView{
 
     @Override
     public void showNoNet() {
+        if(adapter.getItemCount()==0){
+            mLoadingView.setState(LoadingState.STATE_NO_NET);
+        }else{
+            mLoadingView.setVisibility(View.GONE);
+            AppMsg.makeText(activity,"网络连接失败，请检查网路",AppMsg.STYLE_INFO).show();
+        }
     }
 
     @Override
     public void refreshMore(List<MarketDynamicDALEx> list) {
-        adapter.addData(list);
+        if(list.size()!=0){
+            adapter.addData(list);
+            mLoadingView.setVisibility(View.GONE);
+        }else{
+            if(adapter.getItemCount()==0){
+                mLoadingView.setState(LoadingState.STATE_EMPTY);
+            }else{
+                mLoadingView.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
     public void loadMore(List<MarketDynamicDALEx> list) {
-        mDataList.addAll(list);
+        if(list.size()==0)return;
     }
 
     @Override
@@ -111,8 +144,8 @@ public class MarketFragment extends BaseFragment implements IMarketView{
     }
 
     @Override
-    public void onRefreshComplete(String result) {
-        listview.refreshComplete(result);
+    public void onRefreshComplete(int result) {
+        listview.refreshComplete(result + "条新内容");
     }
 
     @Override
@@ -121,7 +154,10 @@ public class MarketFragment extends BaseFragment implements IMarketView{
     }
 
     @Override
-    public void onLoadMoreComplete(String result) {
-        listview.setNoMore(result);
+    public void onLoadMoreComplete(int result) {
+        listview.loadMoreComplete();
+        if(result == 0 && adapter.getItemCount()!=0){
+            listview.setNoMore("到达最后一页");
+        }
     }
 }

@@ -19,7 +19,8 @@ public class MarketModel implements IMarketModel{
 
     @Override
     public void loadMoreMarket(MarketDynamicDALEx data, final ICallBack<List<MarketDynamicDALEx>> callBack) {
-
+        List<MarketDynamicDALEx> list = new ArrayList<MarketDynamicDALEx>();
+        callBack.onSuccess(list);
     }
 
     @Override
@@ -43,6 +44,7 @@ public class MarketModel implements IMarketModel{
     public void loadMarketFirst(ICallBack<List<MarketDynamicDALEx>> callBack) {
 
         List<MarketDynamicDALEx> list = new ArrayList<MarketDynamicDALEx>();
+        callBack.onSuccess(list);
 
     }
 }

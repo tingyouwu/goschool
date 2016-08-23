@@ -8,7 +8,6 @@ import android.widget.HorizontalScrollView;
 
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.mvp.view.activity.MarketAddActivity;
-import com.wty.app.goschool.mvp.view.activity.PublishActivity;
 import com.wty.app.goschool.mvp.view.fragment.ComplainFragment;
 import com.wty.app.goschool.mvp.view.fragment.HelpFragment;
 import com.wty.app.goschool.mvp.view.fragment.MarketFragment;
@@ -37,6 +36,13 @@ public class HomeFragment extends BaseFragment {
     @Bind(R.id.fragment_home_tablayout)
     TabLayout tablayout;
 
+    RecommendFragment recommendFragment;
+    NoticeFragment noticeFragment;
+    ComplainFragment complainFragment;
+    PictureFragment pictureFragment;
+    MarketFragment marketFragment;
+    HelpFragment helpFragment;
+
     @OnClick(R.id.iv_home_showmore)
     void ClickImg(){
         tablayout.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
@@ -56,18 +62,29 @@ public class HomeFragment extends BaseFragment {
     public void onInitView(Bundle savedInstanceState) {
 
         Map<String,BaseFragment> fragments = new LinkedHashMap<>();
-        fragments.put("推荐",new RecommendFragment());
-        fragments.put("通知",new NoticeFragment());
-        fragments.put("吐槽",new ComplainFragment());
-        fragments.put("图片",new PictureFragment());
-        fragments.put("跳蚤市场",new MarketFragment());
-        fragments.put("师兄帮忙", new HelpFragment());
+
+        recommendFragment = new RecommendFragment();
+        noticeFragment = new NoticeFragment();
+        complainFragment = new ComplainFragment();
+        pictureFragment = new PictureFragment();
+        marketFragment = new MarketFragment();
+        helpFragment = new HelpFragment();
+
+        recommendFragment.setActivity(activity);
+        noticeFragment.setActivity(activity);
+        complainFragment.setActivity(activity);
+        pictureFragment.setActivity(activity);
+        marketFragment.setActivity(activity);
+        helpFragment.setActivity(activity);
+
+        fragments.put("推荐",recommendFragment);
+        fragments.put("通知",noticeFragment);
+        fragments.put("吐槽",complainFragment);
+        fragments.put("图片",pictureFragment);
+        fragments.put("跳蚤市场",marketFragment);
+        fragments.put("师兄帮忙", helpFragment);
         TabFragmentAdapter adapter = new TabFragmentAdapter(fragments,this.getChildFragmentManager());
-//        MyViewPagerScroller scroller = new MyViewPagerScroller(getContext());
-//        scroller.setScrollDuration(800);
-//        scroller.initViewPagerScroll(viewPager);  //这个是设置切换过渡时间为0毫秒
         viewPager.setAdapter(adapter);
-//        viewPager.setOffscreenPageLimit(5);
         tablayout.setupWithViewPager(viewPager);
         tablayout.setTabTextColors(getResources().getColor(R.color.gray_font_3), getResources().getColor(R.color.colorBrownAccent));
     }
@@ -75,16 +92,5 @@ public class HomeFragment extends BaseFragment {
     @Override
     public int getLayoutResource() {
         return R.layout.fragment_home;
-    }
-
-    @Override
-    public void initFragmentActionBar(String title) {
-        super.initFragmentActionBar(title);
-        activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MarketAddActivity.startMarketAddActivity(getContext());
-            }
-        });
     }
 }

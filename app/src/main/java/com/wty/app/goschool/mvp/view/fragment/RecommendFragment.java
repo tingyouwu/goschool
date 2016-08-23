@@ -1,21 +1,17 @@
 package com.wty.app.goschool.mvp.view.fragment;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
-import android.widget.HorizontalScrollView;
 
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.HomeAdapter;
 import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.goschool.entity.ActionItem;
+import com.wty.app.goschool.mvp.presenter.RecommendPresenter;
 import com.wty.app.goschool.mvp.view.impl.IRecommendView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
-import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
@@ -31,14 +27,14 @@ import butterknife.Bind;
  * 主页->推荐
  * @author wty
  */
-public class RecommendFragment extends BaseFragment implements IRecommendView{
+public class RecommendFragment extends BaseFragment<RecommendPresenter> implements IRecommendView{
     BaseRecyclerViewAdapter adapter;
 
     @Bind(R.id.listview_life)
     XRecyclerView listview;
 
     @Override
-    public BasePresenter getPresenter() {
+    public RecommendPresenter getPresenter() {
         return null;
     }
 
@@ -72,18 +68,11 @@ public class RecommendFragment extends BaseFragment implements IRecommendView{
     }
 
     @Override
-    public void initFragmentActionBar(String title) {
-        super.initFragmentActionBar(title);
-        activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+    public void doWorkOnResume() {
+        initFragmentActionBar("主页");
     }
 
     private ArrayList<ActionItem> mDataList;
-
 
     private String[] IMG_URL_LIST = {
             "https://pic4.zhimg.com/02685b7a5f2d8cbf74e1fd1ae61d563b_xll.jpg",

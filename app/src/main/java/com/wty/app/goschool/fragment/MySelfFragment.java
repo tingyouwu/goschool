@@ -12,11 +12,6 @@ import com.wty.app.library.mvp.presenter.BasePresenter;
  */
 public class MySelfFragment extends BaseFragment {
 
-
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

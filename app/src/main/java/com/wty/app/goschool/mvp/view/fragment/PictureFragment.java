@@ -28,14 +28,14 @@ import butterknife.Bind;
  * 主页->图片
  * @author wty
  */
-public class PictureFragment extends BaseFragment implements IPictureView {
+public class PictureFragment extends BaseFragment<PicturePresenter> implements IPictureView {
 
     BaseRecyclerViewAdapter adapter;
     @Bind(R.id.listview_life)
     XRecyclerView listview;
 
     @Override
-    public BasePresenter getPresenter() {
+    public PicturePresenter getPresenter() {
         return new PicturePresenter();
     }
 
@@ -70,14 +70,8 @@ public class PictureFragment extends BaseFragment implements IPictureView {
     }
 
     @Override
-    public void initFragmentActionBar(String title) {
-        super.initFragmentActionBar(title);
-        activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+    public void doWorkOnResume() {
+        initFragmentActionBar("主页");
     }
 
     private ArrayList<ActionItem> mDataList;

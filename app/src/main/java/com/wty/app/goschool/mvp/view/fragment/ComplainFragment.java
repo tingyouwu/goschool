@@ -12,7 +12,6 @@ import com.wty.app.goschool.mvp.presenter.ComplainPresenter;
 import com.wty.app.goschool.mvp.view.impl.IComplainView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
-import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;
@@ -28,7 +27,7 @@ import butterknife.Bind;
  * 主页->吐槽
  * @author wty
  */
-public class ComplainFragment extends BaseFragment implements IComplainView{
+public class ComplainFragment extends BaseFragment<ComplainPresenter> implements IComplainView{
 
     BaseRecyclerViewAdapter adapter;
 
@@ -36,7 +35,7 @@ public class ComplainFragment extends BaseFragment implements IComplainView{
     XRecyclerView listview;
 
     @Override
-    public BasePresenter getPresenter() {
+    public ComplainPresenter getPresenter() {
         return new ComplainPresenter();
     }
 
@@ -52,12 +51,12 @@ public class ComplainFragment extends BaseFragment implements IComplainView{
         listview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                ((ComplainPresenter)mPresenter).refreshMoreComplain();
+                mPresenter.refreshMoreComplain();
             }
 
             @Override
             public void onLoadMore() {
-                ((ComplainPresenter)mPresenter).loadMoreComplain();
+                mPresenter.loadMoreComplain();
             }
 
         });
@@ -66,6 +65,11 @@ public class ComplainFragment extends BaseFragment implements IComplainView{
     @Override
     public int getLayoutResource() {
         return R.layout.fragment_life;
+    }
+
+    @Override
+    public void doWorkOnResume() {
+        initFragmentActionBar("主页");
     }
 
     @Override

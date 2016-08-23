@@ -21,6 +21,7 @@ import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.DialogSelectListAdapter;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.presenter.MarketAddPresenter;
+import com.wty.app.goschool.mvp.presenter.MarketPresenter;
 import com.wty.app.goschool.mvp.view.impl.IMarketAddView;
 import com.wty.app.library.activity.BaseActivity;
 import com.wty.app.library.activity.ImageSelectorActivity;
@@ -29,7 +30,6 @@ import com.wty.app.library.base.AppConstant;
 import com.wty.app.library.bean.DialogOptionModel;
 import com.wty.app.library.entity.ImageModel;
 import com.wty.app.library.entity.ImageUriEntity;
-import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.CommonUtil;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DialogHeaderView;
@@ -46,7 +46,7 @@ import butterknife.Bind;
  * @Decription 跳蚤市场发布新内容
  * @author wty
  */
-public class MarketAddActivity extends BaseActivity implements IMarketAddView{
+public class MarketAddActivity extends BaseActivity<MarketAddPresenter> implements IMarketAddView{
 
     @Bind(R.id.et_content)
     EditText et_content;
@@ -74,7 +74,7 @@ public class MarketAddActivity extends BaseActivity implements IMarketAddView{
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public MarketAddPresenter getPresenter() {
         return new MarketAddPresenter();
     }
 
@@ -105,7 +105,7 @@ public class MarketAddActivity extends BaseActivity implements IMarketAddView{
     @Override
     protected boolean submit() {
         if(super.submit()){
-            ((MarketAddPresenter)mPresenter).submit(getSubmitData());
+            mPresenter.submit(getSubmitData());
         }
         return true;
     }

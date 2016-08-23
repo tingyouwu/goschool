@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.wty.app.library.widget.xrecyclerview.XRecyclerView
         android:id = "@+id/listview_life"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior = "@string/appbar_scrolling_view_behavior"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:scaleType="fitCenter"
-        android:src="@drawable/flb_refresh"
-        app:fabSize="mini"
-        app:backgroundTint = "@color/white"
-        app:elevation="0dp"
-        app:layout_behavior = "com.wty.app.library.widget.fab.ScrollAwareFABBehaviorDefault"/>
+        android:layout_height="match_parent"/>
 
     <com.wty.app.library.widget.loadingview.LoadingView
         android:id="@+id/fl_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>
