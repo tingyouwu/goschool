@@ -1,6 +1,9 @@
 package com.wty.app.goschool.adapter;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +38,18 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
         TextView tv_pricenew =helper.getView(R.id.tv_price_new);
         TextView tv_priceold =helper.getView(R.id.tv_price_old);
         TextView tv_content = helper.getView(R.id.tv_content);
+
+        tv_content.setText(item.getGscontent());
+        tv_pricenew.setText("¥"+item.getGspricenew());
+
+        if(item.getGspriceold()!=0){
+            //用删除线标记文本
+            String priceold = "¥"+item.getGspriceold();
+            SpannableString span = new SpannableString(priceold);
+            span.setSpan(new StrikethroughSpan(),0,priceold.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            tv_priceold.setText(span);
+        }
+
         switch (helper.getItemViewType()){
 
             case MarketDynamicDALEx.No_Picture:
@@ -42,10 +57,6 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
 
             case MarketDynamicDALEx.OnlyOne_Picture:
                 final List<String> listOne = Arrays.asList(item.getGsImage().split(","));
-                tv_content.setText(item.getGscontent());
-                tv_pricenew.setText("¥"+item.getGspricenew());
-                tv_priceold.setText("¥"+item.getGspriceold());
-
                 ColorFilterImageView img = helper.getView(R.id.oneImagView);
                 ImageLoaderUtil.load(mContext,item.getGsImage(),img);
                 img.setOnClickListener(new View.OnClickListener() {
@@ -58,11 +69,8 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
                 break;
 
             case MarketDynamicDALEx.Multi_Picture:
-                tv_content.setText(item.getGscontent());
-                tv_pricenew.setText("¥"+item.getGspricenew());
-                tv_priceold.setText("¥"+item.getGspriceold());
-                List<String> list = Arrays.asList(item.getGsImage().split(","));
 
+                List<String> list = Arrays.asList(item.getGsImage().split(","));
                 NineGridImageView imageView = helper.getView(R.id.multiImagView);
                 imageView.setAdapter(mAdapter);
                 List<String> data = new ArrayList<>();

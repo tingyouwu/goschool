@@ -33,7 +33,7 @@
         android:layout_below="@id/tv_name"
         android:layout_alignLeft="@id/tv_name"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="6dp"
+        android:layout_marginRight="20dp"
         android:text="测试一下一下途径"
         android:textColor="@color/black"
         android:textSize="14sp" />
@@ -92,7 +92,7 @@
         android:id="@+id/tv_postage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="6dp"
+        android:layout_marginRight="20dp"
         android:layout_alignBaseline="@id/tv_price_new"
         android:background="@drawable/bg_tv_pink"
         android:layout_marginLeft="10dp"
