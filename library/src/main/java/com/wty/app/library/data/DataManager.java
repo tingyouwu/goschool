@@ -47,26 +47,29 @@ public class DataManager {
 
         /**
          * @Decription where子句
-         * @param where 条件
+         * @param clauses 条件
          **/
-        public SqlQueryBuilder where(String where){
-            sqlquery.add(where);
+        public SqlQueryBuilder where(String clauses){
+            sqlquery.add(clauses);
             return this;
         }
 
         /**
          * @Decription and子句
-         * @param where and后面添加的条件
+         * @param clauses and后面添加的条件
          **/
-        public SqlQueryBuilder and(String where){
-            sqlquery.add(where);
+        public SqlQueryBuilder and(String clauses){
+            sqlquery.add(clauses);
             return this;
         }
 
         /**
          * @Decription leftjoin语句
+         * @param tablename 表名
+         * @param clauses On子句
          **/
-        public SqlQueryBuilder leftJoin(){
+        public SqlQueryBuilder leftJoin(String tablename,String clauses){
+            String.format("left join %s on %s",tablename,clauses);
             return this;
         }
 

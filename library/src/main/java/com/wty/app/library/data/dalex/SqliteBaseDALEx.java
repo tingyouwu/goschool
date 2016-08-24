@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.wty.app.library.base.AppCache;
 import com.wty.app.library.data.AppDBHelper;
 import com.wty.app.library.data.annotation.DatabaseField;
+import com.wty.app.library.data.annotation.Operator;
 import com.wty.app.library.data.annotation.SqliteAnnotationCache;
 import com.wty.app.library.data.annotation.SqliteAnnotationField;
 import com.wty.app.library.data.annotation.SqliteAnnotationTable;
@@ -345,6 +346,15 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
 		return table.getPrimaryKey();
 	}
+
+	/**
+	 * 根据列名找到对应的字段
+	 */
+	public SqliteAnnotationField getSqliteAnnotationField(String columnname){
+		SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
+		return table.getField(columnname);
+	}
 	
 	/**
 	 * 通过事务操作，效率高
@@ -616,8 +626,27 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
                 cursor.close();
             }
         }
+
         return result;
     }
 
+
+	/**
+	 * @Decription 以下是针对字段的方法
+	 **/
+
+	protected final String equalTo(String columnname,Object value){
+		SqliteAnnotationField field = getSqliteAnnotationField(columnname);
+		String result = field.getColumnName() + Operator.eq.operator;
+		DatabaseField.FieldType t = field.getType();
+		if (t == DatabaseField.FieldType.INT) {
+			result = result + value.toString();
+		} else if (t == DatabaseField.FieldType.VARCHAR) {
+			result = result + "'" +value.toString()+"'";
+		} else if (t == DatabaseField.FieldType.REAL) {
+			result = result + value.toString();
+		}
+		return result;
+	}
 
 }
