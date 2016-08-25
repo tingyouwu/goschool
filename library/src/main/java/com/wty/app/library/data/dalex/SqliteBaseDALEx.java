@@ -462,6 +462,12 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		return findOne(sql, params, null);
 	}
 
+	/**
+	 * @Decription  根据sql语句查找一个对象
+	 * @param sql sql语句
+	 * @param params 语句中的参数
+	 * @param listener 查找完之后回调
+	 **/
 	public <T extends SqliteBaseDALEx> T findOne(String sql, String[] params, OnQueryListener listener){
         SqliteBaseDALEx dalex;
         Cursor cursor = null;
@@ -495,7 +501,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	public  <T extends SqliteBaseDALEx> List<T> findList(String sql,String[] params){
 		return findList(sql, params,null);
 	}
-	
+
 	public  <T extends SqliteBaseDALEx> List<T> findList(String sql,String[] params,OnQueryListener listener){
 		List<SqliteBaseDALEx> list = new ArrayList<SqliteBaseDALEx>();
 		Cursor cursor = null;
