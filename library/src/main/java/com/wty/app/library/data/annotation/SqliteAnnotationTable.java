@@ -54,9 +54,11 @@ public class SqliteAnnotationTable {
 		}
 		return fields;
 	}
-	
+
+	/**
+	 * @Decription 获取表列对应的索引
+	 **/
 	public synchronized Map<String,Integer> getCursorIndex(Cursor cursor){
-		
 		Map<String,Integer> index = new HashMap<String,Integer>();
 		for (int i = 0; i < cursor.getColumnCount(); i++) {
 			String name = cursor.getColumnName(i);

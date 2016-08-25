@@ -11,10 +11,10 @@ import com.wty.app.library.data.annotation.Operator;
 import com.wty.app.library.data.annotation.SqliteAnnotationCache;
 import com.wty.app.library.data.annotation.SqliteAnnotationField;
 import com.wty.app.library.data.annotation.SqliteAnnotationTable;
+import com.wty.app.library.utils.AppLogUtil;
 import com.wty.app.library.utils.PreferenceUtil;
 
 import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Decription 数据表对象的基类
+ **/
 public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	
 	private static final long serialVersionUID = 1L;
@@ -36,7 +39,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 功能描述：创建数据库某一张表表名
+	 * @Decription 创建数据库某一张表表名
 	 **/
 	protected String createTableName(){
 		Class<? extends SqliteBaseDALEx> cls = this.getClass();
@@ -44,13 +47,18 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		String[] pa = packageName.split("\\.");
 		return "wty"+pa[pa.length-1];
 	}
-	
+
+	/**
+	 * @Decription 获取数据表表名
+	 * @return 表名
+	 **/
 	public String getTableName(){
 		return TABLE_NAME;
 	}
 
 	/**
-	 * 功能描述：获取当前数据库对象
+	 * @Decription 获取当前数据库对象
+	 * @return 当前DB
 	 **/
 	public static AppDBHelper getDB(){
 		//先获取账号
@@ -60,11 +68,11 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 	
 	/**
-	 * 功能描述：得到构建表的sql语句
+	 * @Decription 得到构建表的sql语句
+	 * @return 建表语句
 	 */
 	protected String SqlCreateTable(){
 		if(!TextUtils.isEmpty(SQL_CREATETABLE))return SQL_CREATETABLE;
-
 		//遍历带注解的字段
 		List<SqliteAnnotationField> safs =  getSqliteAnnotationField();
         List<String> fieldsStr = new ArrayList<String>();
@@ -80,7 +88,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 功能描述：创建表
+	 * @Decription 创建表
 	 **/
 	public void createTable(AppDBHelper db){
 		if (!db.isTableExits(TABLE_NAME)) {
@@ -91,7 +99,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 功能描述：判断表是否没有任何数据
+	 * @Decription 判断表是否没有任何数据
 	 **/
 	public boolean isTableEmpty(){
 		int count = 0;
@@ -109,13 +117,14 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
+				cursor = null;
             }
         }
 		return count == 0;
     }
 	
 	/**
-	 * 功能描述：获得所有的注解字段，把注解的值取出，并转换成字符串
+	 * @Decription 获得所有的注解字段，把注解的值取出，并转换成字符串
 	 * @return Map-K:String V:String
 	 */
 	public Map<String,String> getAnnotationFieldValue(){
@@ -136,8 +145,8 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 	
 	/**
-	 * 功能描述：获得所有的注解字段，把注解的值取出，并转换成Map<String,Object>
-	 *  @return Map-K:String V:Object
+	 * @Decripton 获得所有的注解字段，把注解的值取出，并转换成Map<String,Object>
+	 * @return Map-K:String V:Object
 	 */
 	public Map<String,Object> getAnnotationFieldObject(){
 		Map<String,Object> values = new HashMap<String,Object>();
@@ -157,7 +166,8 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 	
 	/**
-	 * 功能描述：获得所有的注解字段，把注解的值取出，并转换成JSon键值对
+	 * @Decription 获得所有的注解字段，把注解的值取出，并转换成JSon键值对
+	 * @return JsonObject
 	 */
 	public JSONObject getJsonAnnotationFieldValue(){
 		JSONObject jb = new JSONObject();
@@ -177,7 +187,8 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 	
 	/**
-	 * 功能描述：把map中的值填充到字段中
+	 * @Decription 把map中的值填充到字段中
+	 * @param values 入参 Map
 	 */
 	public void setAnnotationField(Map<String,String> values){
 		
@@ -216,62 +227,57 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 功能描述：设置对象完毕后可以加入一些额外操作
+	 * @Decription 设置对象完毕后可以加入一些额外操作
 	 **/
     protected void onSetCursorValueComplete(Cursor cursor){}
 
     /**
-     * 功能描述：通过游标赋值
+     * @Decription 通过游标赋值
      */
 	public final void setAnnotationField(Cursor cursor){
 		setAnnotationField(cursor,null);
 	}
 
     /**
-     * 功能描述：通过游标赋值
+     * @Decription 通过游标赋值
+	 * @param cursor 游标
+	 * @param cursorIndex 索引(查询出多条数据的时候建议使用getCursorIndex方法转换,尽量不要为null)
      */
     private final void setAnnotationField(Cursor cursor,Map<String, Integer> cursorIndex){
     	try {
     		SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
     		SqliteAnnotationTable table = cache.getTable(TABLE_NAME, this.getClass());
 
-            int indexId_InCursor;
-            if(cursorIndex!=null){
-                indexId_InCursor = cursorIndex.get("id");
-            }else{
-                indexId_InCursor = cursor.getColumnIndex("id");
-            }
+			if(cursorIndex == null){
+				cursorIndex = table.getCursorIndex(cursor);
+			}
+
+			// 当前对象的索引id
+            int indexId_InCursor = cursorIndex.get("id");
 
             if(indexId_InCursor!= -1 ){
                 this.indexId = cursor.getInt(indexId_InCursor);
             }
-	    	for(SqliteAnnotationField saf:table.getFields()){
+
+			for (Map.Entry<String, Integer> entry : cursorIndex.entrySet()) {
+				SqliteAnnotationField saf = table.getField(entry.getKey());
+				DatabaseField.FieldType t = saf.getType();
 				Field f = saf.getField();
+				f.setAccessible(true);
 				try {
-					f.setAccessible(true);
-					
-					int index;
-					if(cursorIndex!=null){
-						index = cursorIndex.get(saf.getColumnName());
-					}else{
-						index = cursor.getColumnIndex(saf.getColumnName());
-					}
-					
-					DatabaseField.FieldType t = saf.getType();
-					if (t == DatabaseField.FieldType.INT) {
-						f.set(this, cursor.getInt(index));
-					} else if (t == DatabaseField.FieldType.VARCHAR) {
-						f.set(this, cursor.getString(index));
+					if (t == DatabaseField.FieldType.VARCHAR) {
+						f.set(this, cursor.getString(entry.getValue()));
+					} else if (t == DatabaseField.FieldType.INT) {
+						f.set(this, cursor.getInt(entry.getValue()));
 					} else if (t == DatabaseField.FieldType.REAL) {
-						f.set(this, cursor.getFloat(index));
+						f.set(this, cursor.getFloat(entry.getValue()));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println(f.getName() +" 未能正常赋值 ");
+					AppLogUtil.d(f.getName() +" 未能正常赋值 ");
 				}
-				
 			}
-            onSetCursorValueComplete(cursor);
+			onSetCursorValueComplete(cursor);
 
 	    } catch (Exception e) {
 	    	e.printStackTrace();
@@ -279,7 +285,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
     }
 
     /**
-     * 功能描述：把用户对象的属性转换成键值对
+     * @Decription 把用户对象的属性转换成键值对
      */
     protected ContentValues tranform2Values() {
 		
@@ -302,19 +308,22 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
     }
 
 	/**
-	 * 判断是否存在某个主键id记录
+	 * @Decription 判断是否存在某个主键id记录
 	 **/
     public boolean isExist(String id){
     	return isExist(getPrimaryKey(), id);
     }
-    
-	protected boolean isExist(String primaryKey,String id){
-    	boolean result = false;
+
+	/**
+	 *  @Decription 判断是否存在某个主键id记录
+	 **/
+	protected boolean isExist(String key,String id){
+    	 boolean result = false;
     	 Cursor cursor = null;
          try {
 			 AppDBHelper db = getDB();
              if (db.isTableExits(TABLE_NAME)) {
-                 cursor = db.find("select "+ primaryKey +" from "+ TABLE_NAME +" where "+primaryKey +" =? ",new String[] {id});
+                 cursor = db.find("select "+ key +" from "+ TABLE_NAME +" where "+key +" =? ",new String[] {id});
                  if (cursor != null && cursor.moveToNext()) {
                     result = true;
                  }
@@ -330,7 +339,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
     }
 
 	/**
-	 * 功能描述：获取注解字段
+	 * @Decription 获取所有注解字段
 	 */
 	public List<SqliteAnnotationField> getSqliteAnnotationField(){
 		SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
@@ -339,7 +348,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 获取表主键
+	 * @Decription 获取表主键
 	 */
 	public String getPrimaryKey(){
 		SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
@@ -348,7 +357,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 根据列名找到对应的字段
+	 * @Decription 根据列名找到对应的字段
 	 */
 	public SqliteAnnotationField getSqliteAnnotationField(String columnname){
 		SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
@@ -357,7 +366,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 	
 	/**
-	 * 通过事务操作，效率高
+	 * @Decription 通过事务操作，效率高
 	 */
 	private boolean operatorWithTransaction(OnTransactionListener listener){
 		AppDBHelper db = null;
@@ -380,20 +389,17 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
         }
 	}
 
+	/**
+	 * @Decription 获取索引id
+	 **/
     public int getIndexId() {
         return indexId;
     }
 
-    protected interface OnTransactionListener{
-		boolean onTransaction(AppDBHelper db);
-	}
-
-	protected interface OnQueryListener{
-        <T extends SqliteBaseDALEx> void onResult(Cursor cursor, T t);
-		void onException(Exception e);
-	}
-	
-
+	/**
+	 * @Decription 创建一个对象
+	 * @return
+	 */
 	private SqliteBaseDALEx newDALExInstance(){
 		try {
 			return this.getClass().newInstance();
@@ -407,7 +413,8 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 获取该对象的主键id
+	 * @Decription 获取当前对象的主键id值
+	 * @return 主键id
 	 */
 	public String getPrimaryId(){
 		String result = "";
@@ -430,7 +437,8 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 设置主键ID的值
+	 * @Decription 设置主键ID的值
+	 * @param id 主键id
 	 **/
 	public void setPrimaryId(String id){
 		String key = getPrimaryKey();
@@ -449,15 +457,29 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		}
 	}
 
+	/**
+	 * @Decription 根据主键id 搜索出一个对象
+	 * @param id 主键id
+	 **/
 	public <T extends SqliteBaseDALEx> T findById(String id){
 		return (T)findById(id, null);
 	}
 
+	/**
+	 * @Decription 根据主键id 搜索出一个对象
+	 * @param id 主键id
+	 * @param listener 回调
+	 **/
 	public <T extends SqliteBaseDALEx> T findById(String id,OnQueryListener listener){
 		String sql = "select * from "+TABLE_NAME+" where "+getPrimaryKey()+" =? ";
 		return findOne(sql, new String[]{id}, listener);
 	}
 
+	/**
+	 * @Decription 根据主键id 搜索出一个对象
+	 * @param sql sql语句
+	 * @param params 语句中的参数
+	 **/
 	public <T extends SqliteBaseDALEx> T findOne(String sql, String[] params){
 		return findOne(sql, params, null);
 	}
@@ -494,14 +516,28 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
         return null;
     }
 
+	/**
+	 * @Decription 搜索出当前表的所有记录（全部列）
+	 **/
 	public  <T extends SqliteBaseDALEx> List<T> findAll(){
 		return findList("select * from "+TABLE_NAME, new String[]{});
 	}
-	
+
+	/**
+	 * @Decription 根据sql语句 搜索出列表
+	 * @param sql sql语句
+	 * @param params 参数
+	 **/
 	public  <T extends SqliteBaseDALEx> List<T> findList(String sql,String[] params){
 		return findList(sql, params,null);
 	}
 
+	/**
+	 * @Decription 根据sql语句 搜索出列表
+	 * @param sql sql语句
+	 * @param params 参数
+	 * @param listener 回调
+	 **/
 	public  <T extends SqliteBaseDALEx> List<T> findList(String sql,String[] params,OnQueryListener listener){
 		List<SqliteBaseDALEx> list = new ArrayList<SqliteBaseDALEx>();
 		Cursor cursor = null;
@@ -509,12 +545,9 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
         try {
 			AppDBHelper db = getDB();
             if (db.isTableExits(TABLE_NAME)) {
+
                 cursor = db.find(sql,params);
-                
-                SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
-        		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
-        		Map<String, Integer> cursorIndex = table.getCursorIndex(cursor);
-        		
+        		Map<String, Integer> cursorIndex = getCursorIndex(cursor);
                 while (cursor != null && cursor.moveToNext()) {
                 	if(baseDalex==null){
                 		baseDalex = newDALExInstance();
@@ -541,7 +574,17 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * 功能描述：根据主键Id删除掉一个记录
+	 * @Decription 获取当前cursor 列对应的索引
+	 **/
+	protected final Map<String, Integer> getCursorIndex(Cursor cursor){
+		SqliteAnnotationCache cache = AppCache.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
+		return table.getCursorIndex(cursor);
+	}
+
+	/**
+	 * @Decription 根据主键Id删除掉一个记录
+	 * @param id 主键id
 	 **/
 	public void deleteById(String id){
 		AppDBHelper db;
@@ -552,8 +595,11 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 			e.printStackTrace();
 		}
 	}
-	
-	/** ------------------------------- save -------------------------------*/
+
+	/***
+	 * @Decription 保存或者更新列表
+	 * @param dalex 对象列表
+	 */
     public <T extends SqliteBaseDALEx> void saveOrUpdate(final T[] dalex){
         operatorWithTransaction(new OnTransactionListener() {
 
@@ -575,7 +621,10 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
         });
     }
 
-	/** ------------------------------- save -------------------------------*/
+	/**
+	 * @Decription 保存或者更新列表
+	 * @param dalex 对象列表
+	 **/
 	public <T extends SqliteBaseDALEx> void saveOrUpdate(final List<T> dalex){
 		operatorWithTransaction(new OnTransactionListener() {
 
@@ -597,8 +646,10 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		});
 	}
 
+	/**
+	 * @Decription 保存或者刷新单个对象
+	 **/
 	public void saveOrUpdate(){
-
 		AppDBHelper db = getDB();
         String id = getPrimaryId();
         if(TextUtils.isEmpty(id))return;
@@ -613,7 +664,11 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 
-    //sql语句要写对啊
+    /**
+	 * @Decription 根据sql语句来计算数目
+	 * @param sql sql语句
+	 * @param params 参数
+	 **/
     public int count(String sql,String[] params){
         int result = 0;
         Cursor cursor = null;
@@ -635,6 +690,15 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 
         return result;
     }
+
+	protected interface OnTransactionListener{
+		boolean onTransaction(AppDBHelper db);
+	}
+
+	protected interface OnQueryListener{
+		<T extends SqliteBaseDALEx> void onResult(Cursor cursor, T t);
+		void onException(Exception e);
+	}
 
 	/**
 	 * @Decription 拼接单个子句
@@ -747,6 +811,24 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		return new StringBuilder().append(columnname).append(" ")
 				.append(Operator.like.operator).append(" ")
 				.append("'").append(value.toString()).append("%").append("'").toString();
+	}
+
+	/**
+	 * @Decription 生成 columnname desc 子句
+	 * @param columnname 列名
+	 * @return columnname desc
+	 **/
+	protected final String desc(String columnname){
+		return new StringBuilder().append(columnname).append(" ").append("desc").toString();
+	}
+
+	/**
+	 * @Decription 生成 columnname asc 子句
+	 * @param columnname 列名
+	 * @return columnname asc
+	 **/
+	protected final String asc(String columnname){
+		return new StringBuilder().append(columnname).append(" ").append("asc").toString();
 	}
 
 	/**

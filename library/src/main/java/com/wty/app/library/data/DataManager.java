@@ -54,6 +54,15 @@ public class DataManager {
         }
 
         /**
+         * @Decription as alias
+         * @param alias 别名
+         **/
+        public SqlQueryBuilder as(String alias){
+            sqlquery.add(String.format(" as %s ",alias));
+            return this;
+        }
+
+        /**
          * @Decription where clauses
          * @param clauses 子句
          **/
@@ -144,16 +153,16 @@ public class DataManager {
         }
 
         /**
-         * @Decription orderby value
-         * @param value 个数
+         * @Decription order by value desc
+         * @param columnname 列名
          **/
-        public SqlQueryBuilder orderBy(int value){
-            sqlquery.add(String.format(" order by %s ",value));
+        public SqlQueryBuilder orderByDesc(String columnname){
+            sqlquery.add(String.format(" order by %s desc",columnname));
             return this;
         }
 
         /**
-         * @Decription leftjoin语句
+         * @Decription left join on
          * @param tablename 表名
          * @param clauses On子句
          **/

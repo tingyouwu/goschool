@@ -9,10 +9,6 @@ public enum Operator {
 	eq("="),
 	/** NOT EQUALS ('&gt;&lt;') */
 	neq("<>"),
-	/** IS */
-	is(" IS "),
-	/** IS NOT */
-	isNot(" IS NOT "),
 	/** GREATER THAN ('&gt;') */
 	gt(">"),
 	/** LESS THAN ('&lt;') */
@@ -21,14 +17,6 @@ public enum Operator {
 	gte(">="),
 	/** LESS THAN OR EQUAL ('&lt;=') */
 	lte("<="),
-	/** AND */
-	and(" AND "),
-	/** OR */
-	or(" OR "),
-	/** NOT */
-	not(" NOT "),
-	/** EXISTS */
-	exists(" EXISTS "),
 	/** LIKE */
 	like(" LIKE "),
 	/** NOT LIKE */
@@ -36,17 +24,7 @@ public enum Operator {
 	/** IN */
 	in(" IN "),
 	/** NOT IN */
-	notIn(" NOT IN "),
-	/** BETWEEN */
-	between(" BETWEEN "),
-	/** NOT BETWEEN */
-	notBetween(" NOT BETWEEN "),
-	/** GLOB */
-	glob(" GLOB "),
-	/** NOT GLOB */
-	notGlob(" NOT GLOB "),
-	/** MATCH */
-	match(" MATCH ");
+	notIn(" NOT IN ");
 
 	public final String operator;
 

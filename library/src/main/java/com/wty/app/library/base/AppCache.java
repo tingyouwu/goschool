@@ -39,11 +39,15 @@ public class AppCache {
 	/**
 	 * 功能描述：根据帐号来获取数据库
 	 **/
-	public synchronized AppDBHelper getDBFromUserAccunt(String account){
+	public AppDBHelper getDBFromUserAccunt(String account){
 		AppDBHelper db = localDBMap.get(account);
 		if(db == null){
-			db = new AppDBHelper(MainApplication.getInstance());
-			localDBMap.put(account, db);
+			synchronized (AppCache.class){
+				if(db == null){
+					db = new AppDBHelper(MainApplication.getInstance());
+					localDBMap.put(account, db);
+				}
+			}
 		}
 		return db;
 	}
