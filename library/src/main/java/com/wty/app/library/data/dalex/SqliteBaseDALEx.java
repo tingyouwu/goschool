@@ -630,21 +630,135 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
         return result;
     }
 
-
 	/**
-	 * @Decription 以下是针对字段的方法
+	 * @Decription 拼接单个子句
 	 **/
-
-	protected final String equalTo(String columnname,Object value){
+	private String joinSql(String columnname,String operator,Object value){
 		SqliteAnnotationField field = getSqliteAnnotationField(columnname);
-		String result = field.getColumnName() + Operator.eq.operator;
+		String result = field.getColumnName() + " " + operator + " ";
 		DatabaseField.FieldType t = field.getType();
 		if (t == DatabaseField.FieldType.INT) {
-			result = result + value.toString();
+			result = result + value;
 		} else if (t == DatabaseField.FieldType.VARCHAR) {
-			result = result + "'" +value.toString()+"'";
+			result = result + "'" +value+"'";
 		} else if (t == DatabaseField.FieldType.REAL) {
-			result = result + value.toString();
+			result = result + value;
+		}
+		return result;
+	}
+
+	/**
+	 * @Decription 生成 columnname= value 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname = value
+	 **/
+	protected final String equal(String columnname,Object value){
+		return joinSql(columnname,Operator.eq.operator,value);
+	}
+
+	/**
+	 * @Decription 生成 columnname!= value 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname <> value
+	 **/
+	protected final String notEqual(String columnname,Object value){
+		return joinSql(columnname,Operator.neq.operator,value);
+	}
+
+	/**
+	 * @Decription 生成 columnname!= value 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname > values
+	 **/
+	protected final String greater(String columnname,Object value){
+		return joinSql(columnname,Operator.gt.operator,value);
+	}
+
+	/**
+	 * @Decription 生成 columnname < values 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname < values
+	 **/
+	protected final String less(String columnname,Object value){
+		return joinSql(columnname,Operator.lt.operator,value);
+	}
+
+	/**
+	 * @Decription 生成 columnname <= values 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname <= values
+	 **/
+	protected final String lessOrEqual(String columnname,Object value){
+		return joinSql(columnname,Operator.lte.operator,value);
+	}
+
+	/**
+	 * @Decription 生成 columnname >= values 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname >= values
+	 **/
+	protected final String greaterOrEqual(String columnname,Object value){
+		return joinSql(columnname,Operator.gte.operator,value);
+	}
+
+	/**
+	 * @Decription 生成 columnname like '%value%' 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname like '%value%'
+	 **/
+	protected final String likeContains(String columnname,Object value){
+		return  new StringBuilder().append(columnname).append(" ")
+				.append(Operator.like.operator).append(" ")
+				.append("'").append("%").append(value.toString()).append("%").append("'").toString();
+	}
+
+	/**
+	 * @Decription 生成 columnname like '%value'子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname like '%value'
+	 **/
+	protected final String likeStart(String columnname,Object value){
+		return new StringBuilder().append(columnname).append(" ")
+				.append(Operator.like.operator).append(" ")
+				.append("'").append("%").append(value.toString()).append("'").toString();
+	}
+
+	/**
+	 * @Decription 生成 columnname >= values 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname >= values
+	 **/
+	protected final String likeEnd(String columnname,Object value){
+		return new StringBuilder().append(columnname).append(" ")
+				.append(Operator.like.operator).append(" ")
+				.append("'").append(value.toString()).append("%").append("'").toString();
+	}
+
+	/**
+	 * @Decription 生成 columnname in (value1,value2,value3.....) 子句
+	 * @param columnname 列名
+	 * @param value 值
+	 * @return columnname in (value1,value2,value3.....)
+	 **/
+	protected final <T extends Object> String in(String columnname,List<T> value){
+		SqliteAnnotationField field = getSqliteAnnotationField(columnname);
+		String result = field.getColumnName() + " " + Operator.in.operator + " ";
+		DatabaseField.FieldType t = field.getType();
+		if (t == DatabaseField.FieldType.INT) {
+			result = result + TextUtils.join(",",value);
+		} else if (t == DatabaseField.FieldType.VARCHAR) {
+			result = result + "'" +TextUtils.join("','",value)+"'";
+		} else if (t == DatabaseField.FieldType.REAL) {
+			result = result + TextUtils.join(",",value);
 		}
 		return result;
 	}

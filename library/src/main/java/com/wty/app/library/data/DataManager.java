@@ -16,15 +16,23 @@ public class DataManager {
         }
 
         /**
-         * @Decription 选择所有列
+         * @Decription select *
          **/
-        public SqlQueryBuilder select(){
+        public SqlQueryBuilder selectAll(){
             select("*");
             return this;
         }
 
         /**
-         * @Decription 选择特定列
+         * @Decription select null
+         **/
+        public SqlQueryBuilder selectNull(){
+            select("null");
+            return this;
+        }
+
+        /**
+         * @Decription select column1,column2,column3
          * @param columnname 列名
          **/
         public SqlQueryBuilder select(String... columnname){
@@ -32,34 +40,115 @@ public class DataManager {
             for(String column:columnname){
                 list.add(column);
             }
-            sqlquery.add(TextUtils.join(",", list));
+            sqlquery.add(String.format(" select %s ", TextUtils.join(",", list)));
             return this;
         }
 
         /**
-         * @Decription 待查询的表
+         * @Decription from tablename
          * @param tablename 表名
          **/
         public SqlQueryBuilder from(String tablename){
-            sqlquery.add(tablename);
+            sqlquery.add(String.format(" from %s ",tablename));
             return this;
         }
 
         /**
-         * @Decription where子句
-         * @param clauses 条件
+         * @Decription where clauses
+         * @param clauses 子句
          **/
         public SqlQueryBuilder where(String clauses){
-            sqlquery.add(clauses);
+            sqlquery.add(String.format(" where %s ",clauses));
             return this;
         }
 
         /**
-         * @Decription and子句
-         * @param clauses and后面添加的条件
+         * @Decription and clauses
+         * @param clauses 子句
          **/
         public SqlQueryBuilder and(String clauses){
-            sqlquery.add(clauses);
+            sqlquery.add(String.format(" and %s ",clauses));
+            return this;
+        }
+
+        /**
+         * @Decription or clauses
+         * @param clauses 子句
+         **/
+        public SqlQueryBuilder or(String clauses){
+            sqlquery.add(String.format(" or %s ",clauses));
+            return this;
+        }
+
+        /**
+         * @Decription between clauses
+         * @param clauses 子句
+         **/
+        public SqlQueryBuilder between(String clauses){
+            sqlquery.add(String.format(" between %s ",clauses));
+            return this;
+        }
+
+        /**
+         * @Decription exists clauses
+         * @param clauses 子句
+         **/
+        public SqlQueryBuilder exists(String clauses){
+            sqlquery.add(String.format(" exists %s ",clauses));
+            return this;
+        }
+
+        /**
+         * @Decription not exists clauses
+         * @param clauses 子句
+         **/
+        public SqlQueryBuilder notExists(String clauses){
+            sqlquery.add(String.format(" not exists %s ",clauses));
+            return this;
+        }
+
+        /**
+         * @Decription not in clauses
+         * @param clauses 子句
+         **/
+        public SqlQueryBuilder notIn(String clauses){
+            sqlquery.add(String.format(" not in %s ",clauses));
+            return this;
+        }
+
+        /**
+         * @Decription not between clauses
+         * @param clauses 子句
+         **/
+        public SqlQueryBuilder notBetween(String clauses){
+            sqlquery.add(String.format(" not between %s ",clauses));
+            return this;
+        }
+
+        /**
+         * @Decription limit value
+         * @param value 个数
+         **/
+        public SqlQueryBuilder limit(int value){
+            sqlquery.add(String.format(" limit %s ",value));
+            return this;
+        }
+
+        /**
+         * @Decription limit value
+         * @param value 个数
+         **/
+        public SqlQueryBuilder offset(int value){
+            sqlquery.add(String.format(" offset %s ",value));
+            return this;
+        }
+
+        /**
+         * @Decription orderby value
+         * @param value 个数
+         **/
+        public SqlQueryBuilder orderBy(int value){
+            sqlquery.add(String.format(" order by %s ",value));
             return this;
         }
 
@@ -69,7 +158,7 @@ public class DataManager {
          * @param clauses On子句
          **/
         public SqlQueryBuilder leftJoin(String tablename,String clauses){
-            String.format("left join %s on %s",tablename,clauses);
+            sqlquery.add(String.format("left join %s on %s",tablename,clauses));
             return this;
         }
 
