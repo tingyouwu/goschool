@@ -524,12 +524,19 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
+	 * @Decription 搜索出当前表的所有记录（全部列）
+	 **/
+	public  <T extends SqliteBaseDALEx> List<T> findList(String sql){
+		return findList(sql, new String[]{});
+	}
+
+	/**
 	 * @Decription 根据sql语句 搜索出列表
 	 * @param sql sql语句
 	 * @param params 参数
 	 **/
 	public  <T extends SqliteBaseDALEx> List<T> findList(String sql,String[] params){
-		return findList(sql, params,null);
+		return findList(sql, params, null);
 	}
 
 	/**
@@ -708,11 +715,11 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		String result = field.getColumnName() + " " + operator + " ";
 		DatabaseField.FieldType t = field.getType();
 		if (t == DatabaseField.FieldType.INT) {
-			result = result + value;
+			result = result + value.toString();
 		} else if (t == DatabaseField.FieldType.VARCHAR) {
-			result = result + "'" +value+"'";
+			result = result + "'" + value.toString() +"'";
 		} else if (t == DatabaseField.FieldType.REAL) {
-			result = result + value;
+			result = result + value.toString();
 		}
 		return result;
 	}
@@ -728,7 +735,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * @Decription 生成 columnname!= value 子句
+	 * @Decription 生成 columnname<> value 子句
 	 * @param columnname 列名
 	 * @param value 值
 	 * @return columnname <> value
@@ -738,7 +745,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * @Decription 生成 columnname!= value 子句
+	 * @Decription 生成 columnname> value 子句
 	 * @param columnname 列名
 	 * @param value 值
 	 * @return columnname > values
@@ -764,7 +771,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @return columnname <= values
 	 **/
 	protected final String lessOrEqual(String columnname,Object value){
-		return joinSql(columnname,Operator.lte.operator,value);
+		return joinSql(columnname, Operator.lte.operator, value);
 	}
 
 	/**
@@ -774,7 +781,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @return columnname >= values
 	 **/
 	protected final String greaterOrEqual(String columnname,Object value){
-		return joinSql(columnname,Operator.gte.operator,value);
+		return joinSql(columnname, Operator.gte.operator, value);
 	}
 
 	/**
@@ -832,6 +839,67 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
+	 * @Decription clause1 and clause2 and clause3 and ...
+	 * @param clauses 子句
+	 **/
+	protected final String and(String... clauses){
+		List<String> clauseslist = new ArrayList<String>();
+		for(String clause:clauses){
+			clauseslist.add(clause);
+		}
+		return TextUtils.join(" and ", clauseslist);
+	}
+
+	/**
+	 * @Decription clause1 or clause2 or clause3 or ...
+	 * @param clauses 子句
+	 **/
+	protected final String or(String... clauses){
+		List<String> clauseslist = new ArrayList<String>();
+		for(String clause:clauses){
+			clauseslist.add("("+ clause +")");
+		}
+		return TextUtils.join(" or ", clauseslist);
+	}
+
+	/**
+	 * @Decription clause1 or clause2 or clause3 or ...
+	 * @param clauses 子句
+	 **/
+	protected final String equal(String... clauses){
+		List<String> clauseslist = new ArrayList<String>();
+		for(String clause:clauses){
+			clauseslist.add("("+ clause +")");
+		}
+		return TextUtils.join(" or ", clauseslist);
+	}
+
+	/**
+	 * @Decription not clause
+	 * @param clause 子句
+	 **/
+	protected final String not(String clause){
+		return new StringBuilder().append(" not (").append(clause).append(") ").toString();
+	}
+
+	/**
+	 * @Decription 生成 count(*) 子句
+	 * @return 
+	 **/
+	protected final String count(){
+		return count("*");
+	}
+
+	/**
+	 * @Decription 生成 count(columnname) 子句
+	 * @param columnname 列名
+	 * @return count(columnname)
+	 **/
+	protected final String count(String columnname){
+		return new StringBuilder().append(" count(").append(columnname).append(")").toString();
+	}
+
+	/**
 	 * @Decription 生成 columnname in (value1,value2,value3.....) 子句
 	 * @param columnname 列名
 	 * @param value 值
@@ -850,5 +918,82 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		}
 		return result;
 	}
+
+	/**
+	 * @Decription column between low and high
+	 * @param columnName 列名
+	 * @param low 最小值
+	 * @param high 最大值
+	 * @return
+	 **/
+	protected final String betweenAnd(String columnName,Object low,Object high){
+		//操作符 between ... and 会选取介于两个值之间的数据范围。这些值可以是数值、文本或者日期
+		SqliteAnnotationField field = getSqliteAnnotationField(columnName);
+		DatabaseField.FieldType t = field.getType();
+		String lowObject=null,highObject=null;
+		if (t == DatabaseField.FieldType.INT) {
+			lowObject = low.toString();
+			highObject = high.toString();
+		} else if (t == DatabaseField.FieldType.VARCHAR) {
+			lowObject = "'" + low.toString() + "'";
+			highObject = "'" + high.toString() + "'";
+		} else if (t == DatabaseField.FieldType.REAL) {
+			lowObject = low.toString();
+			highObject = high.toString();
+		}
+		return String.format(" %s between %s and %s", columnName, lowObject, highObject);
+	}
+
+/*******************************  以下是对时间日期的特殊处理 ****************************************************/
+
+	/**
+	 * @Decription column between low and high
+	 * @param columnName 列名
+	 * @param low 最小值
+	 * @param high 最大值
+	 * @return
+	 **/
+	protected final String betweenAndForDateTime(String columnName,String low,String high){
+		//操作符 between ... and 会选取介于两个值之间的数据范围  日期
+		return String.format(" %s between datetime('%s') and datetime('%s')",columnName,low,high);
+	}
+
+	/**
+	 * @Decription 生成 datetime(columnname) 子句
+	 * @param columnname 列名
+	 * @return datetime(columnname)
+	 **/
+	protected final String datetimeColumn(String columnname){
+		return new StringBuilder().append(" datetime(").append(columnname).append(") ").toString();
+	}
+
+	/**
+	 * @Decription 生成 datetime('value') 子句
+	 * @param value 数值
+	 * @return datetime('value')
+	 **/
+	protected final String datetimeValue(String value){
+		return new StringBuilder().append(" datetime('").append(value).append("') ").toString();
+	}
+
+	/**
+	 * @Decription 生成 date(columnname) 子句
+	 * @param columnname 列名
+	 * @return date(columnname)
+	 **/
+	protected final String dateColumn(String columnname){
+		return new StringBuilder().append(" date(").append(columnname).append(") ").toString();
+	}
+
+	/**
+	 * @Decription 生成 date(columnname) 子句
+	 * @param value 数值
+	 * @return date(columnname)
+	 **/
+	protected final String dateValue(String value){
+		return new StringBuilder().append(" date('").append(value).append("') ").toString();
+	}
+
+
 
 }
