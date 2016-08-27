@@ -121,13 +121,27 @@ public class QueryBuilder {
         }
 
         /**
+         * @Decription group by value
+         * @param clauses
+         **/
+        public QueryBuilder groupBy(String... clauses){
+            List<String> list = new ArrayList<String>();
+            for(String column:clauses){
+                list.add(column);
+            }
+            sqlquery.add(String.format(" group by %s ",TextUtils.join(",",list)));
+            return this;
+        }
+
+        /**
          * @Decription left join tablename as alias on clauses
          * @param tablename 表名
          * @param alias 别名
          * @param clauses On子句
          **/
         public QueryBuilder leftJoin(String tablename,String alias,String clauses){
-            sqlquery.add(String.format("left join %s as %s on (%s)",tablename,alias,clauses));
+            //LEFT JOIN 关键字会从左表 (table_name1) 那里返回所有的行，即使在右表 (table_name2) 中没有匹配的行。
+            sqlquery.add(String.format(" left join %s as %s on (%s) ",tablename,alias,clauses));
             return this;
         }
 
@@ -137,7 +151,51 @@ public class QueryBuilder {
          * @param clauses On子句
          **/
         public QueryBuilder leftJoin(String tablename,String clauses){
-            sqlquery.add(String.format("left join %s on (%s)",tablename,clauses));
+            sqlquery.add(String.format(" left join %s on (%s) ",tablename,clauses));
+            return this;
+        }
+
+        /**
+         * @Decription inner join tablename as alias on clauses
+         * @param tablename 表名
+         * @param alias 别名
+         * @param clauses On子句
+         **/
+        public QueryBuilder innerJoin(String tablename,String alias,String clauses){
+            //在表中存在至少一个匹配时，INNER JOIN 关键字返回行。
+            sqlquery.add(String.format(" inner join %s as %s on (%s) ",tablename,alias,clauses));
+            return this;
+        }
+
+        /**
+         * @Decription inner join tablename on clauses
+         * @param tablename 表名
+         * @param clauses On子句
+         **/
+        public QueryBuilder innerJoin(String tablename,String clauses){
+            sqlquery.add(String.format(" inner join %s on (%s)",tablename,clauses));
+            return this;
+        }
+
+        /**
+         * @Decription right join tablename as alias on clauses
+         * @param tablename 表名
+         * @param alias 别名
+         * @param clauses On子句
+         **/
+        public QueryBuilder rightJoin(String tablename,String alias,String clauses){
+            //关键字会右表 (table_name2) 那里返回所有的行，即使在左表 (table_name1) 中没有匹配的行。
+            sqlquery.add(String.format(" right join %s as %s on (%s) ",tablename,alias,clauses));
+            return this;
+        }
+
+        /**
+         * @Decription right join tablename on clauses
+         * @param tablename 表名
+         * @param clauses On子句
+         **/
+        public QueryBuilder rightJoin(String tablename,String clauses){
+            sqlquery.add(String.format(" right join %s on (%s)",tablename,clauses));
             return this;
         }
 

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.wty.app.library.base.AppCache;
 import com.wty.app.library.data.AppDBHelper;
+import com.wty.app.library.data.QueryBuilder;
 import com.wty.app.library.data.annotation.DatabaseField;
 import com.wty.app.library.data.annotation.Operator;
 import com.wty.app.library.data.annotation.SqliteAnnotationCache;
@@ -471,8 +472,21 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @param listener 回调
 	 **/
 	public <T extends SqliteBaseDALEx> T findById(String id,OnQueryListener listener){
-		String sql = "select * from "+TABLE_NAME+" where "+getPrimaryKey()+" =? ";
-		return findOne(sql, new String[]{id}, listener);
+		String sql = new QueryBuilder()
+							.selectAll()
+							.from(TABLE_NAME)
+							.where(equal(getPrimaryKey(),id))
+							.build();
+		return findOne(sql, listener);
+	}
+
+	/**
+	 * @Decription 根据主键id 搜索出一个对象
+	 * @param sql sql语句
+	 * @param listener 回调
+	 **/
+	public <T extends SqliteBaseDALEx> T findOne(String sql, OnQueryListener listener){
+		return findOne(sql, new String[]{}, listener);
 	}
 
 	/**
@@ -845,7 +859,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	protected final String and(String... clauses){
 		List<String> clauseslist = new ArrayList<String>();
 		for(String clause:clauses){
-			clauseslist.add(clause);
+			clauseslist.add("(" + clause + ")");
 		}
 		return TextUtils.join(" and ", clauseslist);
 	}
@@ -863,15 +877,48 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
-	 * @Decription clause1 or clause2 or clause3 or ...
-	 * @param clauses 子句
+	 * @Decription leftclause = rightclause
+	 * @param leftclause 左子句
+	 * @param rightclause 右子句
 	 **/
-	protected final String equal(String... clauses){
-		List<String> clauseslist = new ArrayList<String>();
-		for(String clause:clauses){
-			clauseslist.add("("+ clause +")");
-		}
-		return TextUtils.join(" or ", clauseslist);
+	protected final String eq(String leftclause,String rightclause){
+		return String.format(" %s = %s ",leftclause,rightclause);
+	}
+
+	/**
+	 * @Decription leftclause > rightclause
+	 * @param leftclause 左子句
+	 * @param rightclause 右子句
+	 **/
+	protected final String gt(String leftclause,String rightclause){
+		return String.format(" %s > %s ",leftclause,rightclause);
+	}
+
+	/**
+	 * @Decription leftclause < rightclause
+	 * @param leftclause 左子句
+	 * @param rightclause 右子句
+	 **/
+	protected final String lt(String leftclause,String rightclause){
+		return String.format(" %s < %s ",leftclause,rightclause);
+	}
+
+	/**
+	 * @Decription leftclause <= rightclause
+	 * @param leftclause 左子句
+	 * @param rightclause 右子句
+	 **/
+	protected final String lte(String leftclause,String rightclause){
+		return String.format(" %s <= %s ",leftclause,rightclause);
+	}
+
+	/**
+	 * @Decription leftclause >= rightclause
+	 * @param leftclause 左子句
+	 * @param rightclause 右子句
+	 **/
+	protected final String gte(String leftclause,String rightclause){
+		return String.format(" %s >= %s ",leftclause,rightclause);
 	}
 
 	/**
@@ -880,6 +927,14 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 **/
 	protected final String not(String clause){
 		return new StringBuilder().append(" not (").append(clause).append(") ").toString();
+	}
+
+	/**
+	 * @Decription EXISTS (clause)
+	 * @param clause 子句
+	 **/
+	protected final String exists(String clause){
+		return String.format(" exists (%s) ",clause);
 	}
 
 	/**
@@ -900,6 +955,14 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	}
 
 	/**
+	 * @Decription 生成 sum(columnname) 子句
+	 * @return
+	 **/
+	protected final String sum(String columnname){
+		return new StringBuilder().append(" sum(").append(columnname).append(")").toString();
+	}
+
+	/**
 	 * @Decription 生成 columnname in (value1,value2,value3.....) 子句
 	 * @param columnname 列名
 	 * @param value 值
@@ -917,6 +980,15 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 			result = result + TextUtils.join(",",value);
 		}
 		return result;
+	}
+
+	/**
+	 * @Decription 生成 columnname in (clause) 子句
+	 * @param clause 查询子句
+	 * @return columnname in (clause)
+	 **/
+	protected final String in(String columnname,String clause){
+		return String.format(" %s in (%s) ",columnname,clause);
 	}
 
 	/**
@@ -955,7 +1027,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 **/
 	protected final String betweenAndForDateTime(String columnName,String low,String high){
 		//操作符 between ... and 会选取介于两个值之间的数据范围  日期
-		return String.format(" %s between datetime('%s') and datetime('%s')",columnName,low,high);
+		return String.format(" datetime(%s) between datetime('%s') and datetime('%s')",columnName,low,high);
 	}
 
 	/**
