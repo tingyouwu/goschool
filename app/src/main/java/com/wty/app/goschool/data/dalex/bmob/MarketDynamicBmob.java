@@ -50,6 +50,9 @@ public class MarketDynamicBmob extends BaseBmobObject {
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String gssendtime; // 发送时间
 
+	@DatabaseField(Type = FieldType.REAL)
+	private float gssinglesize;//宽高比例  宽/高
+
 	public static MarketDynamicBmob get(){
 		return BmobObjectDao.getDao(MarketDynamicBmob.class);
 	}

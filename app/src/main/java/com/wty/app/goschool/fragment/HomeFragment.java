@@ -3,11 +3,9 @@ package com.wty.app.goschool.fragment;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.HorizontalScrollView;
 
 import com.wty.app.goschool.R;
-import com.wty.app.goschool.mvp.view.activity.MarketAddActivity;
 import com.wty.app.goschool.mvp.view.fragment.ComplainFragment;
 import com.wty.app.goschool.mvp.view.fragment.HelpFragment;
 import com.wty.app.goschool.mvp.view.fragment.MarketFragment;

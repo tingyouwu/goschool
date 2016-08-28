@@ -59,6 +59,9 @@ public class MarketDynamicDALEx extends SqliteBaseDALEx implements IMultiItemEnt
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String gssendtime; // 发送时间
 
+	@DatabaseField(Type = FieldType.REAL)
+	private float gssinglesize;//宽高比例  宽/高
+
 	public static MarketDynamicDALEx get() {
 		return SqliteDao.getDao(MarketDynamicDALEx.class);
 	}
@@ -214,4 +217,11 @@ public class MarketDynamicDALEx extends SqliteBaseDALEx implements IMultiItemEnt
 		this.gssendtime = gssendtime;
 	}
 
+	public float getGssinglesize() {
+		return gssinglesize;
+	}
+
+	public void setGssinglesize(float gssinglesize) {
+		this.gssinglesize = gssinglesize;
+	}
 }

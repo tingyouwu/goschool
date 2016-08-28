@@ -6,6 +6,8 @@ import com.wty.app.goschool.data.dalex.bmob.MarketDynamicBmob;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.model.impl.IMarketAddModel;
 import com.wty.app.library.callback.ICallBack;
+import com.wty.app.library.utils.FileUtils;
+import com.wty.app.library.utils.PhotoUtils;
 import com.wty.app.library.utils.luban.Luban;
 import com.wty.app.library.utils.luban.OnCompressListener;
 
@@ -41,6 +43,7 @@ public class MarketAddModel implements IMarketAddModel{
                      @Override
                      public void onSuccess(File file) {
                          compresspaths.add(file.getAbsolutePath());
+                         data.setGssinglesize(PhotoUtils.getImageWidthHeightSize(file.getAbsolutePath()));
                          if (compresspaths.size() == filesPath.length) {
                              // 全部压缩完毕
                              uploadBatch(compresspaths,data,callBack);
@@ -79,6 +82,7 @@ public class MarketAddModel implements IMarketAddModel{
                         }
                     });
                 }
+
             }
 
             @Override

@@ -5,6 +5,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.wty.app.goschool.entity.ImageSize;
 import com.wty.app.library.adapter.BaseRecyclerViewMultiItemAdapter;
 import com.wty.app.library.adapter.NineGridImageViewAdapter;
 import com.wty.app.library.utils.ImageLoaderUtil;
+import com.wty.app.library.utils.ScreenUtil;
 import com.wty.app.library.viewholder.BaseRecyclerViewHolder;
 import com.wty.app.library.widget.imageview.ColorFilterImageView;
 import com.wty.app.library.widget.imageview.NineGridImageView;
@@ -58,6 +60,26 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
             case MarketDynamicDALEx.OnlyOne_Picture:
                 final List<String> listOne = Arrays.asList(item.getGsImage().split(","));
                 ColorFilterImageView img = helper.getView(R.id.oneImagView);
+                ViewGroup.LayoutParams lp = img.getLayoutParams();
+                int width,height;
+                if(item.getGssinglesize()>1.0){
+                    //宽>高
+                    width = ScreenUtil.dp2px(mContext,200);
+                    height = (int)(width / item.getGssinglesize());
+                }else if(item.getGssinglesize()<1.0){
+                    //高大于宽
+                    width = ScreenUtil.dp2px(mContext,150);
+                    height = (int)(width / item.getGssinglesize());
+                }else {
+                    //宽等于高
+                    width = ScreenUtil.dp2px(mContext,150);
+                    height = width;
+                }
+
+                lp.width = width;
+                lp.height = height;
+                img.setLayoutParams(lp);
+
                 ImageLoaderUtil.load(mContext,item.getGsImage(),img);
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
