@@ -1,5 +1,6 @@
 package com.wty.app.goschool.data.dalex.local;
 
+import com.wty.app.library.data.QueryBuilder;
 import com.wty.app.library.data.annotation.DatabaseField;
 import com.wty.app.library.data.annotation.DatabaseField.FieldType;
 import com.wty.app.library.data.annotation.SqliteDao;
@@ -102,6 +103,7 @@ public class PublishDynamicDALEx extends SqliteBaseDALEx {
 			return result;
 		}
 	}
+
 
 	public String getGsdynamicid() {
 		return gsdynamicid;
