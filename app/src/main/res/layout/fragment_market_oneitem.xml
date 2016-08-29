@@ -52,8 +52,8 @@
 
     <com.wty.app.library.widget.imageview.ColorFilterImageView
         android:id="@+id/oneImagView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="6dp"

@@ -21,7 +21,6 @@ import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.DialogSelectListAdapter;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.presenter.MarketAddPresenter;
-import com.wty.app.goschool.mvp.presenter.MarketPresenter;
 import com.wty.app.goschool.mvp.view.impl.IMarketAddView;
 import com.wty.app.library.activity.BaseActivity;
 import com.wty.app.library.activity.ImageSelectorActivity;
