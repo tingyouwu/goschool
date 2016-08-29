@@ -19,12 +19,8 @@ public enum Operator {
 	lte("<="),
 	/** LIKE */
 	like(" LIKE "),
-	/** NOT LIKE */
-	notLike(" NOT LIKE "),
 	/** IN */
-	in(" IN "),
-	/** NOT IN */
-	notIn(" NOT IN ");
+	in(" IN ");
 
 	public final String operator;
 

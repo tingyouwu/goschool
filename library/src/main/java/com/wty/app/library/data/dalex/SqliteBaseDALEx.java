@@ -826,7 +826,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @Decription 生成 columnname >= values 子句
 	 * @param columnname 列名
 	 * @param value 值
-	 * @return columnname >= values
+	 * @return columnname like 'value%'
 	 **/
 	protected final String likeEnd(String columnname,Object value){
 		return new StringBuilder().append(columnname).append(" ")
