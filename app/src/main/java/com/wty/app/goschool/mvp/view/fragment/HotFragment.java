@@ -6,10 +6,11 @@ import android.view.View;
 
 import com.devspark.appmsg.AppMsg;
 import com.wty.app.goschool.R;
-import com.wty.app.goschool.adapter.NoticeAdapter;
+import com.wty.app.goschool.adapter.HotAdapter;
+import com.wty.app.goschool.adapter.MarketAdapter;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
-import com.wty.app.goschool.mvp.presenter.NoticePresenter;
-import com.wty.app.goschool.mvp.view.impl.INoticeView;
+import com.wty.app.goschool.mvp.presenter.HotPresenter;
+import com.wty.app.goschool.mvp.view.impl.IHotView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
 import com.wty.app.library.utils.NetWorkUtils;
@@ -27,28 +28,27 @@ import java.util.List;
 import butterknife.Bind;
 
 /**
- * 主页->通知
+ * 主页->热门
  * @author wty
  */
-public class NoticeFragment extends BaseFragment<NoticePresenter> implements INoticeView{
-
+public class HotFragment extends BaseFragment<HotPresenter> implements IHotView{
     BaseRecyclerViewAdapter adapter;
 
     private List<MarketDynamicDALEx> mDataList = new ArrayList<>();
 
-    @Bind(R.id.listview_notice)
+    @Bind(R.id.listview_hot)
     XRecyclerView listview;
-    @Bind(R.id.notice_fl_loading)
+    @Bind(R.id.hot_fl_loading)
     LoadingView mLoadingView;
 
     @Override
-    public NoticePresenter getPresenter() {
-        return new NoticePresenter();
+    public HotPresenter getPresenter() {
+        return new HotPresenter();
     }
 
     @Override
     public void onInitView(Bundle savedInstanceState) {
-        adapter = new NoticeAdapter(getContext(),mDataList);
+        adapter = new HotAdapter(getContext(),mDataList);
         listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         listview.addItemDecoration(new DivItemDecoration(15, false));
         listview.setLoadingMoreProgressStyle(ProgressStyle.LineSpinFadeLoader);
@@ -80,28 +80,17 @@ public class NoticeFragment extends BaseFragment<NoticePresenter> implements INo
         }).build();
 
         // 初始化进入页面加载数据
-        mPresenter.loadNoticeFirst();
+        mPresenter.loadHotFirst();
     }
 
     @Override
     public int getLayoutResource() {
-        return R.layout.fragment_notice;
+        return R.layout.fragment_hot;
     }
 
     @Override
     public void doWorkOnResume() {
         initFragmentActionBar("主页");
-    }
-
-    @Override
-    public void initFragmentActionBar(String title) {
-        super.initFragmentActionBar(title);
-        activity.getDefaultNavigation().setRightButton("发表", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     @Override
@@ -160,5 +149,4 @@ public class NoticeFragment extends BaseFragment<NoticePresenter> implements INo
             listview.setNoMore("亲,已经是最后一页了！");
         }
     }
-
 }

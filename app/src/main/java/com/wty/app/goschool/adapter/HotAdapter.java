@@ -23,14 +23,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Decription 通知 适配器
+ * @Decription 跳蚤市场 适配器
  */
-public class NoticeAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynamicDALEx> {
-    public NoticeAdapter(Context context, List<MarketDynamicDALEx> data) {
-        super(context,data);
-        addItemType(MarketDynamicDALEx.No_Picture,R.layout.fragment_notice_onlytext);
-        addItemType(MarketDynamicDALEx.OnlyOne_Picture, R.layout.fragment_notice_oneitem);
-        addItemType(MarketDynamicDALEx.Multi_Picture,R.layout.fragment_notice_multiitem);
+public class HotAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynamicDALEx> {
+    public HotAdapter(Context context, List<MarketDynamicDALEx> data) {
+        super(context, data);
+        addItemType(MarketDynamicDALEx.OnlyOne_Picture, R.layout.fragment_hot_oneitem);
+        addItemType(MarketDynamicDALEx.Multi_Picture,R.layout.fragment_hot_multiitem);
     }
 
     @Override
@@ -97,7 +96,6 @@ public class NoticeAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
         @Override
         public void onDisplayImage(Context context, ImageView imageView, String path) {
             ImageLoaderUtil.load(mContext,path,imageView);
-
         }
 
         @Override

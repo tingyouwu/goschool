@@ -1,7 +1,6 @@
 package com.wty.app.goschool.mvp.view.impl;
 
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
-import com.wty.app.goschool.data.dalex.local.PublishDynamicDALEx;
 import com.wty.app.library.mvp.view.IBaseView;
 
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 /**
  * @author wty
  */
-public interface INoticeView extends IBaseView{
+public interface IHotView extends IBaseView{
 
     boolean checkNet();
 

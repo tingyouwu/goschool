@@ -2,7 +2,7 @@ package com.wty.app.goschool.mvp.model;
 
 import com.wty.app.goschool.data.dalex.bmob.MarketDynamicBmob;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
-import com.wty.app.goschool.mvp.model.impl.INoticeModel;
+import com.wty.app.goschool.mvp.model.impl.IHotModel;
 import com.wty.app.library.callback.ICallBack;
 
 import java.util.ArrayList;
@@ -15,17 +15,16 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * @author wty
  */
-public class NoticeModel implements INoticeModel{
-
+public class HotModel implements IHotModel{
 
     @Override
-    public void loadMoreNotice(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack) {
+    public void loadMoreHot(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack) {
         List<MarketDynamicDALEx> list = new ArrayList<MarketDynamicDALEx>();
         callBack.onSuccess(list);
     }
 
     @Override
-    public void refreshMoreNotice(MarketDynamicDALEx data, final ICallBack<List<MarketDynamicDALEx>> callBack) {
+    public void refreshMoreHot(MarketDynamicDALEx data, final ICallBack<List<MarketDynamicDALEx>> callBack) {
         BmobQuery<MarketDynamicBmob> query = new BmobQuery<MarketDynamicBmob>();
 
         query.findObjects(new FindListener<MarketDynamicBmob>() {
@@ -42,7 +41,7 @@ public class NoticeModel implements INoticeModel{
     }
 
     @Override
-    public void loadNoticeFirst(ICallBack<List<MarketDynamicDALEx>> callBack) {
+    public void loadHotFirst(ICallBack<List<MarketDynamicDALEx>> callBack) {
         List<MarketDynamicDALEx> list = new ArrayList<MarketDynamicDALEx>();
         callBack.onSuccess(list);
     }

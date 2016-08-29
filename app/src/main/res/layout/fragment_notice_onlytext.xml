@@ -34,6 +34,7 @@
         android:layout_alignLeft="@id/tv_name"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         android:text="测试一下一下途径"
         android:textColor="@color/black"
         android:textSize="14sp" />
@@ -50,62 +51,11 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/img_nav_down"/>
 
-    <com.wty.app.library.widget.imageview.ColorFilterImageView
-        android:id="@+id/oneImagView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="6dp"
-        android:scaleType="centerInside"
-        android:layout_below="@id/tv_content"
-        android:layout_alignLeft="@id/tv_name"/>
-
-    <TextView
-        android:id="@+id/tv_price_new"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/oneImagView"
-        android:layout_alignLeft="@id/tv_name"
-        android:text="¥300.00"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/red"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_price_old"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/viewStub"
-        android:layout_toRightOf="@id/tv_price_new"
-        android:layout_alignBaseline="@id/tv_price_new"
-        android:layout_marginTop="5dp"
-        android:text="¥100.00"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/gray_font_3"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/tv_postage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_alignBaseline="@id/tv_price_new"
-        android:background="@drawable/bg_tv_pink"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentRight="true"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
-        android:text="包邮"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="12sp" />
-
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_price_new"
+        android:layout_below="@id/tv_content"
         android:layout_alignLeft="@id/tv_name"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"

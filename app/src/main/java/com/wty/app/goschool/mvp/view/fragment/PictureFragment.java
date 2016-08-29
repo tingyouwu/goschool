@@ -2,7 +2,6 @@ package com.wty.app.goschool.mvp.view.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.HomeAdapter;
@@ -12,7 +11,6 @@ import com.wty.app.goschool.mvp.presenter.PicturePresenter;
 import com.wty.app.goschool.mvp.view.impl.IPictureView;
 import com.wty.app.library.adapter.BaseRecyclerViewAdapter;
 import com.wty.app.library.fragment.BaseFragment;
-import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.utils.NetWorkUtils;
 import com.wty.app.library.widget.DivItemDecoration;
 import com.wty.app.library.widget.xrecyclerview.ProgressStyle;

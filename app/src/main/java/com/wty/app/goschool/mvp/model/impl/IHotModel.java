@@ -9,20 +9,19 @@ import java.util.List;
 /**
  * @author wty
  */
-public interface INoticeModel extends IBaseModel{
-
+public interface IHotModel extends IBaseModel{
     /**
      * 加载更多
      **/
-    void loadMoreNotice(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
+    void loadMoreHot(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
 
     /**
      * 刷新更多
      **/
-    void refreshMoreNotice(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
+    void refreshMoreHot(MarketDynamicDALEx data, ICallBack<List<MarketDynamicDALEx>> callBack);
 
     /**
      * 首次进入加载数据
      **/
-    void loadNoticeFirst(ICallBack<List<MarketDynamicDALEx>> callBack);
+    void loadHotFirst(ICallBack<List<MarketDynamicDALEx>> callBack);
 }

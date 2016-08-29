@@ -1,9 +1,9 @@
 package com.wty.app.goschool.mvp.presenter;
 
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
-import com.wty.app.goschool.mvp.model.NoticeModel;
-import com.wty.app.goschool.mvp.model.impl.INoticeModel;
-import com.wty.app.goschool.mvp.view.impl.INoticeView;
+import com.wty.app.goschool.mvp.model.HotModel;
+import com.wty.app.goschool.mvp.model.impl.IHotModel;
+import com.wty.app.goschool.mvp.view.impl.IHotView;
 import com.wty.app.library.callback.ICallBack;
 import com.wty.app.library.mvp.presenter.BasePresenter;
 
@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * @author wty
  */
-public class NoticePresenter extends BasePresenter<INoticeView>{
+public class HotPresenter extends BasePresenter<IHotView>{
 
-    private INoticeModel mNoticeModel;
+    private IHotModel mHotModel;
 
-    public NoticePresenter(){
-        mNoticeModel = new NoticeModel();
+    public HotPresenter(){
+        mHotModel = new HotModel();
     }
 
     public void refreshMoreComplain(){
@@ -27,7 +27,7 @@ public class NoticePresenter extends BasePresenter<INoticeView>{
             return;
         }
 
-        mNoticeModel.refreshMoreNotice(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
+        mHotModel.refreshMoreHot(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
             public void onSuccess(List<MarketDynamicDALEx> data) {
                 mView.onRefreshComplete(data.size());
@@ -49,7 +49,7 @@ public class NoticePresenter extends BasePresenter<INoticeView>{
             return;
         }
 
-        mNoticeModel.loadMoreNotice(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
+        mHotModel.loadMoreHot(new MarketDynamicDALEx(), new ICallBack<List<MarketDynamicDALEx>>() {
             @Override
             public void onSuccess(List<MarketDynamicDALEx> data) {
                 mView.onLoadMoreComplete(data.size());
@@ -63,7 +63,7 @@ public class NoticePresenter extends BasePresenter<INoticeView>{
         });
     }
 
-    public void loadNoticeFirst(){
+    public void loadHotFirst(){
         mView.showNoNet();
     }
 
