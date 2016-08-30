@@ -33,11 +33,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onInitView(Bundle savedInstanceState) {
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         //对应xml中的containerId
         navigateTabBar.setFrameLayoutId(R.id.main_container);
         //对应xml中的navigateTabTextColor
