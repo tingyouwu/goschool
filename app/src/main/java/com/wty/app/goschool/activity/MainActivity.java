@@ -2,10 +2,7 @@ package com.wty.app.goschool.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 
-import com.tbruyelle.rxpermissions.Permission;
-import com.tbruyelle.rxpermissions.RxPermissions;
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.fragment.HomeFragment;
 import com.wty.app.goschool.fragment.LifeFragment;
@@ -15,11 +12,8 @@ import com.wty.app.library.activity.BaseActivity;
 import com.wty.app.library.mvp.presenter.BasePresenter;
 import com.wty.app.library.widget.TabStripView;
 
-import java.util.List;
-import java.util.jar.Manifest;
 
 import butterknife.Bind;
-import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity {
 
@@ -69,10 +63,5 @@ public class MainActivity extends BaseActivity {
     @Override
     protected boolean isEnableStatusBar() {
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }
