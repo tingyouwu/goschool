@@ -107,7 +107,14 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
 
     @Override
     protected int getItemMultiViewType(int position) {
-        return 0;
+        MarketDynamicDALEx item = getItem(position);
+        int length = item.getGsImage().split(",").length;
+        if(length > 1)
+            return MarketDynamicDALEx.Multi_Picture;
+        else if (length ==1)
+            return MarketDynamicDALEx.OnlyOne_Picture;
+
+        return MarketDynamicDALEx.No_Picture;
     }
 
     private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {

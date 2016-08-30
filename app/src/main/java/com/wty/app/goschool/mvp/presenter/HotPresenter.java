@@ -64,7 +64,12 @@ public class HotPresenter extends BasePresenter<IHotView>{
     }
 
     public void loadHotFirst(){
-        mView.showNoNet();
+        if(!mView.checkNet()){
+            mView.showNoNet();
+            mView.onLoadMoreComplete();
+            return;
+        }
+        mView.onRefreshComplete(0);
     }
 
 }

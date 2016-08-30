@@ -7,7 +7,6 @@ import android.view.View;
 import com.devspark.appmsg.AppMsg;
 import com.wty.app.goschool.R;
 import com.wty.app.goschool.adapter.HotAdapter;
-import com.wty.app.goschool.adapter.MarketAdapter;
 import com.wty.app.goschool.data.dalex.local.MarketDynamicDALEx;
 import com.wty.app.goschool.mvp.presenter.HotPresenter;
 import com.wty.app.goschool.mvp.view.impl.IHotView;
@@ -134,6 +133,12 @@ public class HotFragment extends BaseFragment<HotPresenter> implements IHotView{
 
     @Override
     public void onRefreshComplete(int result) {
+        if(result==0 && adapter.getItemCount()==0){
+            mLoadingView.setState(LoadingState.STATE_EMPTY);
+        }else{
+            if(mLoadingView.getVisibility()==View.VISIBLE)
+                mLoadingView.setVisibility(View.GONE);
+        }
         listview.refreshComplete(result + "条新内容");
     }
 
