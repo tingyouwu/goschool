@@ -36,7 +36,7 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, MarketDynamicDALEx item,int position) {
+    protected void bindView(BaseRecyclerViewHolder helper, MarketDynamicDALEx item, int position) {
         TextView tv_pricenew =helper.getView(R.id.tv_price_new);
         TextView tv_priceold =helper.getView(R.id.tv_price_old);
         TextView tv_content = helper.getView(R.id.tv_content);
@@ -103,6 +103,11 @@ public class MarketAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
             default:
                 break;
         }
+    }
+
+    @Override
+    protected int getItemMultiViewType(int position) {
+        return 0;
     }
 
     private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {

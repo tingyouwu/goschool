@@ -4,13 +4,12 @@ import com.wty.app.library.data.annotation.DatabaseField;
 import com.wty.app.library.data.annotation.DatabaseField.FieldType;
 import com.wty.app.library.data.annotation.SqliteDao;
 import com.wty.app.library.data.dalex.SqliteBaseDALEx;
-import com.wty.app.library.entity.IMultiItemEntity;
 
 /**
  * @Decription 跳蚤市场信息存储类
  * @author wty
  */
-public class MarketDynamicDALEx extends SqliteBaseDALEx implements IMultiItemEntity{
+public class MarketDynamicDALEx extends SqliteBaseDALEx{
 	
 	private static final long serialVersionUID = 1L;
 	public static final int Postage_True = 1;//包邮
@@ -64,18 +63,6 @@ public class MarketDynamicDALEx extends SqliteBaseDALEx implements IMultiItemEnt
 
 	public static MarketDynamicDALEx get() {
 		return SqliteDao.getDao(MarketDynamicDALEx.class);
-	}
-
-	@Override
-	public int getItemType() {
-		int length = gsImage.split(",").length;
-
-		if(length > 1)
-			return Multi_Picture;
-		else if (length ==1)
-			return OnlyOne_Picture;
-
-		return No_Picture;
 	}
 
 	/**

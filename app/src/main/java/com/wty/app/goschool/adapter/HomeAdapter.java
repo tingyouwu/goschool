@@ -31,9 +31,9 @@ public class HomeAdapter extends BaseRecyclerViewMultiItemAdapter<ActionItem> {
         addItemType(ActionItem.IMGS,R.layout.fragment_dynamic_item);
     }
 
-    @Override
-    protected void convert(BaseRecyclerViewHolder helper, ActionItem item,int position) {
 
+    @Override
+    protected void bindView(BaseRecyclerViewHolder helper, ActionItem item, int position) {
         switch (helper.getItemViewType()){
             case ActionItem.TEXT:
                 break;
@@ -69,6 +69,11 @@ public class HomeAdapter extends BaseRecyclerViewMultiItemAdapter<ActionItem> {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected int getItemMultiViewType(int position) {
+        return ActionItem.IMG;
     }
 
     private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {

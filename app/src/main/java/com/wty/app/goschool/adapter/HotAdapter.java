@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Decription 跳蚤市场 适配器
+ * @Decription 热门 适配器
  */
 public class HotAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynamicDALEx> {
     public HotAdapter(Context context, List<MarketDynamicDALEx> data) {
@@ -33,7 +33,7 @@ public class HotAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynamicDA
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, MarketDynamicDALEx item,int position) {
+    protected void bindView(BaseRecyclerViewHolder helper, MarketDynamicDALEx item, int position) {
         TextView tv_content = helper.getView(R.id.tv_content);
         tv_content.setText(item.getGscontent());
 
@@ -90,6 +90,18 @@ public class HotAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynamicDA
             default:
                 break;
         }
+    }
+
+    @Override
+    protected int getItemMultiViewType(int position) {
+        MarketDynamicDALEx item = getItem(position);
+        int length = item.getGsImage().split(",").length;
+        if(length > 1)
+            return MarketDynamicDALEx.Multi_Picture;
+        else if (length ==1)
+            return MarketDynamicDALEx.OnlyOne_Picture;
+
+        return MarketDynamicDALEx.No_Picture;
     }
 
     private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {

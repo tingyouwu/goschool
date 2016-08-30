@@ -34,7 +34,7 @@ public class NoticeAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, MarketDynamicDALEx item,int position) {
+    protected void bindView(BaseRecyclerViewHolder helper, MarketDynamicDALEx item, int position) {
         TextView tv_content = helper.getView(R.id.tv_content);
         tv_content.setText(item.getGscontent());
 
@@ -91,6 +91,18 @@ public class NoticeAdapter extends BaseRecyclerViewMultiItemAdapter<MarketDynami
             default:
                 break;
         }
+    }
+
+    @Override
+    protected int getItemMultiViewType(int position) {
+        MarketDynamicDALEx item = getItem(position);
+        int length = item.getGsImage().split(",").length;
+        if(length > 1)
+            return MarketDynamicDALEx.Multi_Picture;
+        else if (length ==1)
+            return MarketDynamicDALEx.OnlyOne_Picture;
+
+        return MarketDynamicDALEx.No_Picture;
     }
 
     private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {
